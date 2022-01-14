@@ -1,6 +1,7 @@
 package personnel;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 /**
  * Employé d'une ligue hébergée par la M2L. Certains peuvent 
@@ -16,8 +17,10 @@ public class Employe implements Serializable, Comparable<Employe>
 	private String nom, prenom, password, mail;
 	private Ligue ligue;
 	private GestionPersonnel gestionPersonnel;
+	private String dateArivee;
+	private String dateDepart;
 	
-	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password)
+	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, String dateArivee, String datedepart)
 	{
 		this.gestionPersonnel = gestionPersonnel;
 		this.nom = nom;
@@ -25,6 +28,8 @@ public class Employe implements Serializable, Comparable<Employe>
 		this.password = password;
 		this.mail = mail;
 		this.ligue = ligue;
+		this.dateArivee = dateArivee;
+		this.dateDepart = datedepart;
 	}
 	
 	/**
@@ -50,6 +55,25 @@ public class Employe implements Serializable, Comparable<Employe>
 	{
 		return gestionPersonnel.getRoot() == this;
 	}
+	
+	
+	
+	public String getDateArivee() {
+		return dateArivee;
+	}
+	public void setDateArivee(String dateArivee) {
+		this.dateArivee = dateArivee;
+	}
+	
+	
+	public String getDateDepart() {
+		return dateDepart;
+	}
+	public void setDateDepart(String dateDepart) {
+		this.dateDepart = dateDepart;
+	}
+	
+	
 	
 	/**
 	 * Retourne le nom de l'employé.
@@ -174,7 +198,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	@Override
 	public String toString()
 	{
-		String res = nom + " " + prenom + " " + mail + " (";
+		String res = nom + " " + prenom + " " + mail +" A : "+ dateArivee+" D : "+ dateDepart +" (";
 		if (estRoot())
 			res += "super-utilisateur";
 		else

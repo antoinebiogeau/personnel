@@ -99,7 +99,7 @@ public class LigueConsole
 				{
 					ligue.addEmploye(getString("nom : "), 
 						getString("prenom : "), getString("mail : "), 
-						getString("password : "));
+						getString("password : "), getString("Date arrivée :"), getString("Date de depart : "));
 				}
 		);
 	}
