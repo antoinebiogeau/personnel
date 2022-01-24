@@ -2,6 +2,7 @@ package commandLine;
 
 import static commandLineMenus.rendering.examples.util.InOut.getString;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import commandLineMenus.List;
@@ -99,7 +100,7 @@ public class LigueConsole
 				{
 					ligue.addEmploye(getString("nom : "), 
 						getString("prenom : "), getString("mail : "), 
-						getString("password : "), getString("Date arrivée :"), getString("Date de depart : "));
+						getString("password : "), LocalDate.parse(getString("Date Arrivee (Y-M-D) : ")), LocalDate.parse(getString("Date Depart (Y-M-D) : ")));
 				}
 		);
 	}

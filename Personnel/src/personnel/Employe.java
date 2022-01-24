@@ -1,6 +1,7 @@
 package personnel;
 
 import java.io.Serializable;
+
 import java.time.LocalDate;
 
 /**
@@ -17,10 +18,10 @@ public class Employe implements Serializable, Comparable<Employe>
 	private String nom, prenom, password, mail;
 	private Ligue ligue;
 	private GestionPersonnel gestionPersonnel;
-	private String dateArivee;
-	private String dateDepart;
+	private LocalDate dateArivee;
+	private LocalDate dateDepart;
 	
-	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, String dateArivee, String datedepart)
+	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArivee, LocalDate datedepart)
 	{
 		this.gestionPersonnel = gestionPersonnel;
 		this.nom = nom;
@@ -58,18 +59,18 @@ public class Employe implements Serializable, Comparable<Employe>
 	
 	
 	
-	public String getDateArivee() {
+	public LocalDate getDateArivee() {
 		return dateArivee;
 	}
-	public void setDateArivee(String dateArivee) {
+	public void setDateArivee(LocalDate dateArivee) {
 		this.dateArivee = dateArivee;
 	}
 	
 	
-	public String getDateDepart() {
+	public LocalDate getDateDepart() {
 		return dateDepart;
 	}
-	public void setDateDepart(String dateDepart) {
+	public void setDateDepart(LocalDate dateDepart) {
 		this.dateDepart = dateDepart;
 	}
 	
@@ -198,7 +199,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	@Override
 	public String toString()
 	{
-		String res = nom + " " + prenom + " " + mail +" A : "+ dateArivee+" D : "+ dateDepart +" (";
+		String res = nom + " " + prenom + " " + mail +" Date Arrivee : "+ dateArivee+" Date Depart : "+ dateDepart +" (";
 		if (estRoot())
 			res += "super-utilisateur";
 		else
