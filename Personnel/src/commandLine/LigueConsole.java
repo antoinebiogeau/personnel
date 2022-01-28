@@ -104,16 +104,32 @@ public class LigueConsole
 				}
 		);
 	}
-	
+
 	private Menu gererEmployes(Ligue ligue)
 	{
 		Menu menu = new Menu("Gérer les employés de " + ligue.getNom(), "e");
 		menu.add(afficherEmployes(ligue));
 		menu.add(ajouterEmploye(ligue));
+		menu.add( selectionnerEmploye(ligue));
+		menu.addBack("q");
+		return menu;
+	}
+	
+	private Menu editerEmployes(Ligue ligue)
+	{
+		Menu menu = new Menu("Gérer les employés de " + ligue.getNom(), "e");
 		menu.add(modifierEmploye(ligue));
 		menu.add(supprimerEmploye(ligue));
 		menu.addBack("q");
 		return menu;
+	}
+	
+	private List<Employe> selectionnerEmploye(final Ligue ligue)
+	{
+		return new List<>("Sélectionner un lemployer", "e", 
+				() -> new ArrayList<>(ligue.getEmployes()),
+				employeConsole.editerEmploye()
+				);
 	}
 
 	private List<Employe> supprimerEmploye(final Ligue ligue)
@@ -141,5 +157,6 @@ public class LigueConsole
 	{
 		return new Option("Supprimer", "d", () -> {ligue.remove();});
 	}
+	
 	
 }
