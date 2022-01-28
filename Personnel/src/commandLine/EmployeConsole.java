@@ -6,6 +6,7 @@ import commandLineMenus.ListOption;
 import commandLineMenus.Menu;
 import commandLineMenus.Option;
 import personnel.Employe;
+import personnel.Ligue;
 
 public class EmployeConsole 
 {
@@ -28,6 +29,7 @@ public class EmployeConsole
 			menu.add(changerMail(employe));
 			menu.add(changerPassword(employe));
 			menu.add(supprimerEmploye(employe));
+			menu.add(MetAdmin(employe));
 			menu.addBack("q");
 			return menu;
 	}
@@ -56,6 +58,11 @@ public class EmployeConsole
 	
 	private Option supprimerEmploye(final Employe employe) {
 		return new Option("supprimer", "r", () -> {employe.remove();});
+	}
+	
+	private Option MetAdmin(final Employe employe) {
+		Ligue ligue = employe.getLigue();
+		return new Option("Met admin de la ligue", "k", () -> {ligue.setAdministrateur(employe);});
 	}
 
 }
