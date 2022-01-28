@@ -1,0 +1,3 @@
+EMPLOYÉ: IdEmployer, Date d'entré, Date de sortie, Nom, Prénom, Type
+PERMETTRE, 01 EMPLOYÉ, 0N LIGUE
+LIGUE: IdLigue, Nom
