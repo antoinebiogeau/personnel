@@ -59,18 +59,24 @@ public class Employe implements Serializable, Comparable<Employe>
 	
 	
 	
-	public LocalDate getDateArrivee() {
+	public LocalDate getDateArrivee() 
+	{
 		return dateArrivee;
 	}
-	public void setDateArrivee(LocalDate dateArrivee) {
+	
+	public void setDateArrivee(LocalDate dateArrivee) 
+	{
 		this.dateArrivee = dateArrivee;
 	}
 	
 	
-	public LocalDate getDateDepart() {
+	public LocalDate getDateDepart() 
+	{
 		return dateDepart;
 	}
-	public void setDateDepart(LocalDate dateDepart) {
+	
+	public void setDateDepart(LocalDate dateDepart) 
+	{
 		this.dateDepart = dateDepart;
 	}
 	
