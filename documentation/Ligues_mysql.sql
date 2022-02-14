@@ -1,0 +1,22 @@
+CREATE DATABASE IF NOT EXISTS `LIGUES` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `LIGUES`;
+
+CREATE TABLE `EMPLOYÉ` (
+  `idemployer`INT NOT NULL AUTO_INCREMENT,
+  `date_d'entré` VARCHAR(42),
+  `date_de_sortie` VARCHAR(42),
+  `nom` VARCHAR(42),
+  `prénom` VARCHAR(42),
+  `mail` VARCHAR(42),
+  `type` VARCHAR(42),
+  `idligue` INT(11),
+  PRIMARY KEY (`idemployer`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `LIGUE` (
+  `idligue` INT NOT NULL AUTO_INCREMENT,
+  `nom` VARCHAR(42),
+  PRIMARY KEY (`idligue`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE `EMPLOYÉ` ADD FOREIGN KEY (`idligue`) REFERENCES `LIGUE` (`idligue`);
