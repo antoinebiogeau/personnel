@@ -10,7 +10,7 @@ CREATE TABLE `EMPLOYÉ` (
   `mail` VARCHAR(42),
   `type` VARCHAR(42),
   `idligue` INT(11),
-  PRIMARY KEY (`idemployer`)
+  PRIMARY KEY (`idemployé`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `LIGUE` (
