@@ -125,7 +125,6 @@ public class LigueConsole
 			throw new BonsoirNon();
 		}
 		catch(BonsoirNon e) {
-			System.out.println(i);
 			return parseErr(str);
 		}
 	}
