@@ -9,7 +9,7 @@ import commandLineMenus.List;
 import commandLineMenus.Menu;
 import commandLineMenus.Option;
 
-import personnel.*;
+import personnel.*;//bah c'est avec
 
 public class LigueConsole 
 {
@@ -112,15 +112,13 @@ public class LigueConsole
 		);
 	}
 
-	private String parseErr(String str)
+	public String parseErr(String str)
 	{
 		String args = getString(str);
-		int i = 0;
+		tools tools = new tools();
 
-		if (10 == args.length())
-			for(i = 0; i < 10 && ((args.charAt(i) >= '0' && args.charAt(i) <= '9') || args.charAt(i) == '-'); i++);
-			if (i == 10)
-				return args;
+		if (10 == args.length() && tools.verif_forma(args))
+			return args;
 		try {
 			throw new BonsoirNon();
 		}
