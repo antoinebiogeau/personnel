@@ -2,9 +2,9 @@ CREATE DATABASE IF NOT EXISTS `LIGUES` DEFAULT CHARACTER SET utf8 COLLATE utf8_g
 USE `LIGUES`;
 
 CREATE TABLE `EMPLOYÉ` (
-  `idemployer`INT NOT NULL AUTO_INCREMENT,
-  `date_d'entré` VARCHAR(42),
-  `date_de_sortie` VARCHAR(42),
+  `idemployé`INT NOT NULL AUTO_INCREMENT,
+  `date_d'entré` DATE,
+  `date_de_sortie` DATE,
   `nom` VARCHAR(42),
   `prénom` VARCHAR(42),
   `mail` VARCHAR(42),
