@@ -98,11 +98,36 @@ public class LigueConsole
 		return new Option("ajouter un employé", "a",
 				() -> 
 				{
-					ligue.addEmploye(getString("nom : "), 
-						getString("prenom : "), getString("mail : "), 
-						getString("password : "), LocalDate.parse(getString("Date Arrivee (Y-M-D) : ")), LocalDate.parse(getString("Date Depart (Y-M-D) : ")));
+					String nom, prenom, mail, password;
+					LocalDate Arrivee = null, Depart = null;
+
+					nom = getString("nom : ");
+					prenom = getString("prenom : ");
+					mail = getString("mail : ");
+					password = getString("password : ");
+					Arrivee = LocalDate.parse(parseErr("Date Arrivee (YYYY-MM-DD) : "));
+					Depart = LocalDate.parse(parseErr("Date Depart (YYYY-MM-DD) : "));
+					ligue.addEmploye(nom, prenom, mail, password, Arrivee, Depart);
 				}
 		);
+	}
+
+	private String parseErr(String str)
+	{
+		String args = getString(str);
+		int i = 0;
+
+		if (10 == args.length())
+			for(i = 0; i < 10 && ((args.charAt(i) >= '0' && args.charAt(i) <= '9') || args.charAt(i) == '-'); i++);
+			if (i == 10)
+				return args;
+		try {
+			throw new BonsoirNon();
+		}
+		catch(BonsoirNon e) {
+			System.out.println(i);
+			return parseErr(str);
+		}
 	}
 
 	private Menu gererEmployes(Ligue ligue)
