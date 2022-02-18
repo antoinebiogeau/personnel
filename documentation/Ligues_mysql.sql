@@ -8,7 +8,7 @@ CREATE TABLE `EMPLOYÉ` (
   `nom` VARCHAR(42),
   `prénom` VARCHAR(42),
   `mail` VARCHAR(42),
-  `type` VARCHAR(42),
+  `type` INT(11),
   `idligue` INT(11),
   PRIMARY KEY (`idemployé`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
