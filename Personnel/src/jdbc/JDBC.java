@@ -3,6 +3,7 @@ package jdbc;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -92,8 +93,14 @@ public class JDBC implements Passerelle
 		try 
 		{
 			PreparedStatement instruction;
-			instruction = connection.prepareStatement("insert into LIGUE (date_d'entree, date_de_sortie,nom,prenom,mail,type,idligue) values(?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
-			instruction.setString(1, Employe.getNom());		
+			instruction = connection.prepareStatement("insert into Employe (date_d'entree, date_de_sortie,nom,prenom,mail,type,idligue) values(?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+			instruction.setDate(5, Employe.getDateArrivee() == null ? null : Date.valueOf(Employe.getDateArrivee()));
+			instruction.setDate(5, Employe.getDateDepart() == null ? null : Date.valueOf(Employe.getDateDepart()));
+			instruction.setString(3, Employe.getNom());
+			instruction.setString(4, Employe.getPrenom());
+			instruction.setString(5, Employe.getMail());
+			instruction.setInt(6, Employe.get);
+			instruction.setString(7, Employe.getNom());
 			instruction.executeUpdate();
 			ResultSet id = instruction.getGeneratedKeys();
 			id.next();
