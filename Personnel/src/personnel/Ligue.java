@@ -74,7 +74,10 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	{
 		return administrateur;
 	}
-
+	
+	public int getId() {
+		return this.id;
+	}
 	/**
 	 * Fait de administrateur l'administrateur de la ligue.
 	 * Lève DroitsInsuffisants si l'administrateur n'est pas 

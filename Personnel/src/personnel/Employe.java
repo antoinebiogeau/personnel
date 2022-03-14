@@ -3,6 +3,7 @@ package personnel;
 import java.io.Serializable;
 
 import java.time.LocalDate;
+import java.util.TreeSet;
 
 /**
  * Employé d'une ligue hébergée par la M2L. Certains peuvent 
@@ -39,7 +40,19 @@ public class Employe implements Serializable, Comparable<Employe>
 			e.printStackTrace();
 		} 
 	}
-	
+	Employe(GestionPersonnel gestionPersonnel, int id, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrivee, LocalDate datedepart, int type)
+	{
+		this.nom = nom;
+		this.prenom = prenom;
+		this.password = password;
+		this.mail = mail;
+		this.ligue = ligue;
+		this.dateArrivee = dateArrivee;
+		this.dateDepart = datedepart;
+		this.type = type;
+		this.gestionPersonnel = gestionPersonnel;
+		this.id = id;
+	}
 	/**
 	 * Retourne vrai ssi l'employé est administrateur de la ligue 
 	 * passée en paramètre.
@@ -182,6 +195,12 @@ public class Employe implements Serializable, Comparable<Employe>
 	public Ligue getLigue()
 	{
 		return ligue;
+	}
+	public int getType() {
+		return this.type;
+	}
+	public void setType(int type) {
+		this.type = type;
 	}
 
 	/**
