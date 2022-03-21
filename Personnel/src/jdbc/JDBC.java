@@ -7,6 +7,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import personnel.*;
 
@@ -89,19 +90,56 @@ public class JDBC implements Passerelle
 		}		
 	}
 	@Override
-	public int insert(Employe Employe) throws SauvegardeImpossible 
+	public int insert(Employe employé) throws SauvegardeImpossible 
 	{
 		try 
 		{
+			if(employé.getNom().equals("root")) {
+			/*PreparedStatement instruction;
+			instruction = connection.prepareStatement("INSERT INTO `employé` (`date_d'entré`,`date_de_sortie`,`nom`,`prénom`,`mail`,`type`,`idligue`) values(?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+			instruction.setDate(1, employé.getDateArrivee() == null ? null : Date.valueOf(employé.getDateArrivee()));
+			instruction.setDate(2, employé.getDateDepart() == null ? null : Date.valueOf(employé.getDateDepart()));
+			instruction.setString(3, employé.getNom());
+			instruction.setString(4, employé.getPrenom());
+			instruction.setString(5, employé.getMail());
+			instruction.setInt(6, employé.getType());
+			instruction.setInt(7, 40);
+			instruction.executeUpdate();
+			ResultSet idemployer = instruction.getGeneratedKeys();
+			idemployer.next();*/
+			return 0;
+			}
+			else {
+				PreparedStatement instruction;
+				instruction = connection.prepareStatement("INSERT INTO `employé` (`date_d'entré`,`date_de_sortie`,`nom_employe`,`prénom`,`mail`,`password`,`type`,`idligue`) values(?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+				instruction.setDate(1, employé.getDateArrivee() == null ? null : Date.valueOf(employé.getDateArrivee()));
+				instruction.setDate(2, employé.getDateDepart() == null ? null : Date.valueOf(employé.getDateDepart()));
+				instruction.setString(3, employé.getNom());
+				instruction.setString(4, employé.getPrenom());
+				instruction.setString(5, employé.getMail());
+				instruction.setString(6, employé.getPrenom());
+				instruction.setInt(7, employé.getType());
+				instruction.setInt(8, employé.getidligue());
+				instruction.executeUpdate();
+				ResultSet idemployer = instruction.getGeneratedKeys();
+				idemployer.next();
+				return idemployer.getInt(1);
+			}
+			
+		} 
+		catch (SQLException exception) 
+		{
+			exception.printStackTrace();
+			throw new SauvegardeImpossible(exception);
+		}		
+	}
+	
+	//delete de ligue et employé
+	public int delete(Ligue ligue) throws SauvegardeImpossible{
+		try 
+		{
 			PreparedStatement instruction;
-			instruction = connection.prepareStatement("INSERT INTO employé (nom,prenom,mail,type,idligue) values(?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
-			instruction.setDate(1, Employe.getDateArrivee() == null ? null : Date.valueOf(Employe.getDateArrivee()));
-			instruction.setDate(2, Employe.getDateDepart() == null ? null : Date.valueOf(Employe.getDateDepart()));
-			instruction.setString(3, Employe.getNom());
-			instruction.setString(4, Employe.getPrenom());
-			instruction.setString(5, Employe.getMail());
-			instruction.setInt(6, Employe.getType());
-			instruction.setInt(7, Employe.getLigue().getId());
+			instruction = connection.prepareStatement("DELETE FROM ligue WHERE idligue = "+ligue.getId()+" ", Statement.RETURN_GENERATED_KEYS);		
 			instruction.executeUpdate();
 			ResultSet id = instruction.getGeneratedKeys();
 			id.next();
@@ -111,6 +149,65 @@ public class JDBC implements Passerelle
 		{
 			exception.printStackTrace();
 			throw new SauvegardeImpossible(exception);
-		}		
+		}
+		
 	}
+	public int delete(Employe employé) throws SauvegardeImpossible{
+		try 
+		{
+			PreparedStatement instruction;
+			instruction = connection.prepareStatement("DELETE FROM employé WHERE idemployer = "+employé.getid()+"", Statement.RETURN_GENERATED_KEYS);		
+			instruction.executeUpdate();
+			ResultSet idemployer = instruction.getGeneratedKeys();
+			idemployer.next();
+			return idemployer.getInt(1);
+		} 
+		catch (SQLException exception) 
+		{
+			exception.printStackTrace();
+			throw new SauvegardeImpossible(exception);
+		}
+		
+	}
+	
+	//Update de ligue et employé
+	@Override
+	public int update(Ligue ligue) throws SauvegardeImpossible, SQLException {
+		PreparedStatement instruction;
+		instruction = connection.prepareStatement("UPDATE ligue SET nom = '"+ligue.getNom()+"' WHERE idligue = "+ligue.getId()+" ", Statement.RETURN_GENERATED_KEYS);		
+		instruction.executeUpdate();
+		return 0;
+	}
+
+	@Override
+	public int update(Employe employé) throws SauvegardeImpossible, SQLException {
+		PreparedStatement instruction;
+		instruction = connection.prepareStatement("UPDATE ligue SET nom = '"+ employé.getNom()+"', SET prenom = '"+employé.getPrenom()+"', SET mail = '"+employé.getMail()+"', Set password ='"+employé.getPassword()+"' WHERE idligue = "+ employé.getid() +" ", Statement.RETURN_GENERATED_KEYS);		
+		instruction.executeUpdate();
+		return 0;
+		// TODO Auto-generated method stub
+	}
+	//select ligue et employé
+	@Override
+	public String selectEmployé(Ligue ligue) throws SauvegardeImpossible, SQLException{
+		String Employés ="";
+		String requete = "SELECT nom_employe FROM employé , ligue  WHERE employé.idligue = ligue.idligue AND ligue.idligue = "+ligue.getId()+" ";
+		Statement instruction = connection.createStatement();
+		ResultSet  employeLigue = instruction.executeQuery(requete);
+		while (employeLigue.next()) {
+			int i = 1;
+			Employés += "\n"+employeLigue.getString( i);
+			i++;
+	}
+		return Employés;
+	
+	}
+
+	@Override
+	public int select(Ligue ligue) throws SauvegardeImpossible {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	
 }

@@ -66,6 +66,9 @@ public class Employe implements Serializable, Comparable<Employe>
 	{
 		return ligue.getAdministrateur() == this;
 	}
+	public int getid() {
+		return this.id;
+	}
 	
 	/**
 	 * Retourne vrai ssi l'employé est le root.
@@ -101,8 +104,9 @@ public class Employe implements Serializable, Comparable<Employe>
 		if(dateArrivee != null && dateDepart != null && dateDepart.isAfter(dateArrivee))
 		this.dateDepart = dateDepart;
 	}
-	
-	
+	public int getidligue() {
+		return this.ligue.getId();
+	}
 	
 	/**
 	 * Retourne le nom de l'employé.
@@ -164,6 +168,7 @@ public class Employe implements Serializable, Comparable<Employe>
 		this.mail = mail;
 	}
 
+
 	/**
 	 * Retourne vrai ssi le password passé en paramètre est bien celui
 	 * de l'employé.
@@ -185,6 +190,9 @@ public class Employe implements Serializable, Comparable<Employe>
 	public void setPassword(String password)
 	{
 		this.password= password;
+	}
+	public String getPassword() {
+		return this.password;
 	}
 
 	/**

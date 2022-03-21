@@ -1,6 +1,8 @@
 package personnel;
 
 import java.io.Serializable;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -94,9 +96,9 @@ public class GestionPersonnel implements Serializable
 		return ligue;
 	}
 
-	void remove(Ligue ligue)
+	int remove(Ligue ligue)throws SauvegardeImpossible
 	{
-		ligues.remove(ligue);
+		return passerelle.delete(ligue);
 	}
 	
 	int insert(Ligue ligue) throws SauvegardeImpossible
@@ -107,14 +109,50 @@ public class GestionPersonnel implements Serializable
 	/**
 	 * Retourne le root (super-utilisateur).
 	 * @return le root.
+	 * @throws SQLException 
+	 * @throws SauvegardeImpossible 
 	 */
-	
+	public String getEmploye(Ligue ligue) throws SauvegardeImpossible, SQLException
+	{
+		if (ligue.getId() !=0)
+			return passerelle.selectEmployé(ligue);
+		else
+			return "";
+	}
+	public Employe addEmploye(int id, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrivee, LocalDate datedepart, int type)
+	{
+		Employe employe = new Employe(this, id, ligue, nom,  prenom,  mail, password,  dateArrivee, datedepart,  type);
+		return employe;
+	}
+	public Employe addEmploye( Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrivee, LocalDate datedepart, int type)
+	{
+		Employe employe = new Employe(this, ligue, nom,  prenom,  mail, password,  dateArrivee, datedepart);
+		return employe;
+	}
 	public Employe getRoot()
 	{
 		return root;
 	}
 
-	int insert(Employe employe) throws SauvegardeImpossible {
-		return passerelle.insert(employe);
+	int insert(Employe employé) throws SauvegardeImpossible {
+		if (employé.estRoot()) {
+			return 0;
+		}
+		else {
+			return passerelle.insert(employé);
+		}
+	}
+	int delete(Employe employé)throws SauvegardeImpossible {
+		if (employé.estRoot()) {
+			return 0;
+		}
+		else {
+			return passerelle.delete(employé);
+		}
+	}
+
+	public int updateLigue(Ligue ligue) throws SauvegardeImpossible, SQLException {
+		// TODO Auto-generated method stub
+		return passerelle.update(ligue);
 	}
 }

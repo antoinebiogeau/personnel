@@ -2,6 +2,7 @@ package commandLine;
 
 import static commandLineMenus.rendering.examples.util.InOut.getString;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -49,7 +50,12 @@ public class LigueConsole
 	}
 	private Option afficherEmployes(final Ligue ligue)
 	{
-		return new Option("Afficher les employes", "l", () -> {System.out.println(ligue.getEmployes());});
+		return new Option("Afficher les employes", "l", () -> {try {
+			System.out.println(ligue.selectEmployé(ligue));
+		} catch (SauvegardeImpossible | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}});
 	}
 
 	private Option ajouterLigue()
@@ -82,7 +88,16 @@ public class LigueConsole
 	private Option changerNom(final Ligue ligue)
 	{
 		return new Option("Renommer", "r", 
-				() -> {ligue.setNom(getString("Nouveau nom : "));});
+				() -> {
+					ligue.setNom(getString("Nouveau nom : "));
+					try {
+						ligue.updateLigue(ligue);
+					} catch (SauvegardeImpossible | SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					}
+				);
 	}
 
 	private List<Ligue> selectionnerLigue()
@@ -144,6 +159,7 @@ public class LigueConsole
 		return new List<>("SÃ©lectionner un lemployer", "e", 
 				() -> new ArrayList<>(ligue.getEmployes()),
 				employeConsole.editerEmploye()
+				
 				);
 	}
 
@@ -163,7 +179,14 @@ public class LigueConsole
 	
 	private Option supprimer(Ligue ligue)
 	{
-		return new Option("Supprimer", "d", () -> {ligue.remove();});
+		return new Option("Supprimer", "d", () -> {
+			try {
+				ligue.remove()
+				;
+			} catch (SauvegardeImpossible e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}});
 	}
 	
 	
