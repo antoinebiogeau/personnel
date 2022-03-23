@@ -1,7 +1,7 @@
 package personnel;
 
 import java.io.Serializable;
-
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.TreeSet;
 
@@ -78,6 +78,9 @@ public class Employe implements Serializable, Comparable<Employe>
 	public boolean estRoot()
 	{
 		return gestionPersonnel.getRoot() == this;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	
@@ -228,6 +231,20 @@ public class Employe implements Serializable, Comparable<Employe>
 		else
 			throw new ImpossibleDeSupprimerRoot();
 	}
+	public void delete(Employe employe) throws SauvegardeImpossible {
+		Employe root = gestionPersonnel.getRoot();
+		if (this != root)
+		{
+			if (estAdmin(getLigue()))
+				getLigue().setAdministrateur(root);
+			gestionPersonnel.delete(this);
+		}
+		else
+			throw new ImpossibleDeSupprimerRoot();
+	}
+	public int update(Employe employe) throws SauvegardeImpossible, SQLException {
+		return gestionPersonnel.update(employe);
+	}
 
 	@Override
 	public int compareTo(Employe autre)
@@ -241,12 +258,13 @@ public class Employe implements Serializable, Comparable<Employe>
 	@Override
 	public String toString()
 	{
-		String res = nom + " " + prenom + " " + mail +" Date Arrivee : "+ dateArrivee+" Date Depart : "+ dateDepart +" (";
+		String res ="\n"+ nom + " " + prenom + " " + mail +" Date Arrivee : "+ dateArrivee+" Date Depart : "+ dateDepart +" (";
 		if (estRoot())
 			res += "super-utilisateur";
 		else
 			res += ligue.toString();
 		return res + ")";
 	}
+
 	
 }

@@ -24,6 +24,7 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	private SortedSet<Employe> employes;
 	private Employe administrateur;
 	private GestionPersonnel gestionPersonnel;
+	private LocalDate dateDepart;
 	
 	/**
 	 * Crée une ligue.
@@ -118,19 +119,21 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	 * @return l'employé créé. 
 	 * @throws SauvegardeImpossible 
 	 */
-
-	public Employe addEmploye(String nom, String prenom, String mail, String password, LocalDate dateArrivee, LocalDate dateDepart) {
-		Employe employe = new Employe(this.gestionPersonnel, this, nom, prenom, mail, password, dateArrivee, dateDepart);
-		employes.add(employe);
-		return employe;
+	public Employe addEmploye(String nom, String prenom, String mail, String password, LocalDate dateArrive, LocalDate dateDepart, int id,int type) {
+        Employe employe = new Employe(this.gestionPersonnel, this, nom, prenom, mail, password, dateArrive, dateDepart);
+        employe.setId(id);
+        employes.add(employe);
+        return employe;
+    }
+	public Employe addEmploye(String nom, String prenom, String mail, String password, LocalDate date_arrivee,LocalDate date_depart) {
+		Employe employe = new Employe(this.gestionPersonnel, this, nom, prenom, mail, password, date_arrivee, date_depart);
+        employes.add(employe);
+        return employe;
 	}
 	
 	void remove(Employe employe)
 	{
 		employes.remove(employe);
-	}
-	public String  selectEmploy�(Ligue ligue) throws SauvegardeImpossible, SQLException {
-		return gestionPersonnel.getEmploye(ligue);
 	}
 	/**
 	 * Supprime la ligue, entraîne la suppression de tous les employés
@@ -160,4 +163,5 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	{
 		return nom;
 	}
+
 }

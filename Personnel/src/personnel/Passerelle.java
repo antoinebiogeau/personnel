@@ -13,7 +13,6 @@ public interface Passerelle
 	public int update(Employe employé) throws SauvegardeImpossible, SQLException;
 	public int delete(Ligue ligue) throws SauvegardeImpossible;
 	public int delete(Employe employé) throws SauvegardeImpossible;
-	public String selectEmployé(Ligue ligue) throws SauvegardeImpossible, SQLException;
 	public int select(Ligue ligue) throws SauvegardeImpossible;
 
 }

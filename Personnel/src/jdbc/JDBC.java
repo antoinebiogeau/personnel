@@ -7,6 +7,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import personnel.*;
@@ -33,23 +34,41 @@ public class JDBC implements Passerelle
 	}
 	
 	@Override
-	public GestionPersonnel getGestionPersonnel() 
-	{
-		GestionPersonnel gestionPersonnel = new GestionPersonnel();
-		try 
-		{
-			String requete = "select * from LIGUE";
-			Statement instruction = connection.createStatement();
-			ResultSet ligues = instruction.executeQuery(requete);
-			while (ligues.next())
-				gestionPersonnel.addLigue(ligues.getInt(1), ligues.getString(2));
-		}
-		catch (SQLException e)
-		{
-			System.out.println(e);
-		}
-		return gestionPersonnel;
-	}
+    public GestionPersonnel getGestionPersonnel() {
+        GestionPersonnel gestionPersonnel = new GestionPersonnel();
+
+        try {
+            String requete = "SELECT * FROM ligue";
+            Statement instruction = connection.createStatement();
+            ResultSet ligues = instruction.executeQuery(requete);
+
+            while (ligues.next()) {
+                gestionPersonnel.addLigue(ligues.getInt("idligue"), ligues.getString("nom"));
+                PreparedStatement req = connection.prepareStatement("SELECT * FROM employé WHERE idligue = ?");
+                req.setInt(1, ligues.getInt("idligue"));
+                ResultSet employe = req.executeQuery();
+                Ligue ligue = gestionPersonnel.getLigues().last();
+
+                while (employe.next()) {
+                    int id = employe.getInt("idemployer");
+                    String nom = employe.getString("nom_employe");
+                    String prenom = employe.getString("prénom");
+                    String mail = employe.getString("mail");
+                    String password = employe.getString("password");
+                    LocalDate date_arrivee = employe.getDate("date_d'entré") != null ? LocalDate.parse(employe.getString("date_d'entré")) : null;
+                    LocalDate date_depart = employe.getDate("date_de_sortie") != null ? LocalDate.parse(employe.getString("date_de_sortie")) : null;
+                    Employe employee = ligue.addEmploye(nom, prenom, mail, password, date_arrivee, date_depart);
+                    if (employe.getBoolean("type")) {
+                        ligue.setAdministrateur(employee);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return gestionPersonnel;
+    }
 
 	@Override
 	public void sauvegarderGestionPersonnel(GestionPersonnel gestionPersonnel) throws SauvegardeImpossible 
@@ -182,32 +201,19 @@ public class JDBC implements Passerelle
 	@Override
 	public int update(Employe employé) throws SauvegardeImpossible, SQLException {
 		PreparedStatement instruction;
-		instruction = connection.prepareStatement("UPDATE ligue SET nom = '"+ employé.getNom()+"', SET prenom = '"+employé.getPrenom()+"', SET mail = '"+employé.getMail()+"', Set password ='"+employé.getPassword()+"' WHERE idligue = "+ employé.getid() +" ", Statement.RETURN_GENERATED_KEYS);		
+		instruction = connection.prepareStatement("UPDATE employé SET nom_employe = '"+ employé.getNom()+"', prénom = '"+employé.getPrenom()+"',  mail = '"+employé.getMail()+"',  password ='"+employé.getPassword()+"' WHERE idligue = "+ employé.getidligue() +" AND idemployer = "+ employé.getid() +" ", Statement.RETURN_GENERATED_KEYS);		
 		instruction.executeUpdate();
 		return 0;
 		// TODO Auto-generated method stub
 	}
 	//select ligue et employé
-	@Override
-	public String selectEmployé(Ligue ligue) throws SauvegardeImpossible, SQLException{
-		String Employés ="";
-		String requete = "SELECT nom_employe FROM employé , ligue  WHERE employé.idligue = ligue.idligue AND ligue.idligue = "+ligue.getId()+" ";
-		Statement instruction = connection.createStatement();
-		ResultSet  employeLigue = instruction.executeQuery(requete);
-		while (employeLigue.next()) {
-			int i = 1;
-			Employés += "\n"+employeLigue.getString( i);
-			i++;
-	}
-		return Employés;
-	
-	}
 
 	@Override
 	public int select(Ligue ligue) throws SauvegardeImpossible {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 	
 	
 }

@@ -50,12 +50,9 @@ public class LigueConsole
 	}
 	private Option afficherEmployes(final Ligue ligue)
 	{
-		return new Option("Afficher les employes", "l", () -> {try {
-			System.out.println(ligue.selectEmployé(ligue));
-		} catch (SauvegardeImpossible | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}});
+		return new Option("Afficher les employes", "l", () -> {
+			System.out.println(ligue.getEmployes());
+		});
 	}
 
 	private Option ajouterLigue()

@@ -83,11 +83,6 @@ public class Serialization implements personnel.Passerelle
 		return 0;
 	}
 
-	@Override
-	public String selectEmployé(Ligue ligue) throws SauvegardeImpossible, SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public int select(Ligue ligue) throws SauvegardeImpossible {

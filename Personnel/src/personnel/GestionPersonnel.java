@@ -112,13 +112,6 @@ public class GestionPersonnel implements Serializable
 	 * @throws SQLException 
 	 * @throws SauvegardeImpossible 
 	 */
-	public String getEmploye(Ligue ligue) throws SauvegardeImpossible, SQLException
-	{
-		if (ligue.getId() !=0)
-			return passerelle.selectEmployé(ligue);
-		else
-			return "";
-	}
 	public Employe addEmploye(int id, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrivee, LocalDate datedepart, int type)
 	{
 		Employe employe = new Employe(this, id, ligue, nom,  prenom,  mail, password,  dateArrivee, datedepart,  type);
@@ -132,6 +125,9 @@ public class GestionPersonnel implements Serializable
 	public Employe getRoot()
 	{
 		return root;
+	}
+	public int update(Employe employé) throws SauvegardeImpossible, SQLException{
+		return passerelle.update(employé);
 	}
 
 	int insert(Employe employé) throws SauvegardeImpossible {
