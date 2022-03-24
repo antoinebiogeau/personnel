@@ -2,11 +2,14 @@ package commandLine;
 
 import static commandLineMenus.rendering.examples.util.InOut.getString;
 
+import java.sql.SQLException;
+
 import commandLineMenus.ListOption;
 import commandLineMenus.Menu;
 import commandLineMenus.Option;
 import personnel.Employe;
 import personnel.Ligue;
+import personnel.SauvegardeImpossible;
 
 public class EmployeConsole 
 {
@@ -37,23 +40,55 @@ public class EmployeConsole
 	private Option changerNom(final Employe employe)
 	{
 		return new Option("Changer le nom", "n", 
-				() -> {employe.setNom(getString("Nouveau nom : "));}
+				() -> {
+					employe.setNom(getString("Nouveau nom : "));
+					try {
+						employe.update();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					}
 			);
 	}
 	
 	private Option changerPrenom(final Employe employe)
 	{
-		return new Option("Changer le prénom", "p", () -> {employe.setPrenom(getString("Nouveau prénom : "));});
+		return new Option("Changer le prénom", "p", () -> {
+			employe.setPrenom(getString("Nouveau prénom : "));
+			try {
+				employe.update();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			;});
 	}
 	
 	private Option changerMail(final Employe employe)
 	{
-		return new Option("Changer le mail", "e", () -> {employe.setMail(getString("Nouveau mail : "));});
+		return new Option("Changer le mail", "e", () -> {
+			employe.setMail(getString("Nouveau mail : "));
+			try {
+				employe.update();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			});
 	}
 	
 	private Option changerPassword(final Employe employe)
 	{
-		return new Option("Changer le password", "x", () -> {employe.setPassword(getString("Nouveau password : "));});
+		return new Option("Changer le password", "x", () -> {
+			employe.setPassword(getString("Nouveau password : "));
+			try {
+				employe.update();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			});
 	}
 	
 	private Option supprimerEmploye(final Employe employe) {
@@ -62,7 +97,9 @@ public class EmployeConsole
 	
 	private Option MetAdmin(final Employe employe) {
 		Ligue ligue = employe.getLigue();
-		return new Option("Met admin de la ligue", "k", () -> {ligue.setAdministrateur(employe);});
+		return new Option("Met admin de la ligue", "k", () -> {
+			ligue.setAdministrateur(employe);
+			});
 	}
 
 }

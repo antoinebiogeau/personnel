@@ -1,7 +1,7 @@
 package personnel;
 
 import java.io.Serializable;
-
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.TreeSet;
 
@@ -54,6 +54,9 @@ public class Employe implements Serializable, Comparable<Employe>
 	{
 		return ligue.getAdministrateur() == this;
 	}
+	public int getid() {
+		return this.id;
+	}
 	
 	/**
 	 * Retourne vrai ssi l'employé est le root.
@@ -63,6 +66,9 @@ public class Employe implements Serializable, Comparable<Employe>
 	public boolean estRoot()
 	{
 		return gestionPersonnel.getRoot() == this;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	
@@ -91,8 +97,9 @@ public class Employe implements Serializable, Comparable<Employe>
 			throw new DateImpossible();
 			this.dateDepart = dateDepart;
 	}
-	
-	
+	public int getidligue() {
+		return this.ligue.getId();
+	}
 	
 	/**
 	 * Retourne le nom de l'employé.
@@ -154,6 +161,7 @@ public class Employe implements Serializable, Comparable<Employe>
 		this.mail = mail;
 	}
 
+
 	/**
 	 * Retourne vrai ssi le password passé en paramètre est bien celui
 	 * de l'employé.
@@ -176,6 +184,9 @@ public class Employe implements Serializable, Comparable<Employe>
 	{
 		this.password= password;
 	}
+	public String getPassword() {
+		return this.password;
+	}
 
 	/**
 	 * Retourne la ligue à laquelle l'employé est affecté.
@@ -194,12 +205,6 @@ public class Employe implements Serializable, Comparable<Employe>
 	public void setType(int type) {
 		this.type = type;
 	}
-
-	/**
-	 * Supprime l'employé. Si celui-ci est un administrateur, le root
-	 * récupère les droits d'administration sur sa ligue.
-	 */
-	
 	public void remove()
 	{
 		Employe root = gestionPersonnel.getRoot();
@@ -207,10 +212,30 @@ public class Employe implements Serializable, Comparable<Employe>
 		{
 			if (estAdmin(getLigue()))
 				getLigue().setAdministrateur(root);
+			gestionPersonnel.delete(this);
 			getLigue().remove(this);
+			
 		}
 		else
 			throw new ImpossibleDeSupprimerRoot();
+	}
+
+	/**
+	 * Supprime l'employé. Si celui-ci est un administrateur, le root
+	 * récupère les droits d'administration sur sa ligue.
+	 * @throws SQLException 
+	 */
+	public void update() throws SQLException
+	{
+		try {
+			gestionPersonnel.update(this);
+		} catch (SauvegardeImpossible e) {
+			
+			e.printStackTrace();
+		}
+	}
+	public GestionPersonnel getGestion() {
+		return gestionPersonnel;
 	}
 
 	@Override
@@ -225,13 +250,14 @@ public class Employe implements Serializable, Comparable<Employe>
 	@Override
 	public String toString()
 	{
-		String res = nom + " " + prenom + " " + mail +" Date Arrivee : "+ dateArrivee+" Date Depart : "+ dateDepart +" (";
+		String res ="\n"+ nom + " " + prenom + " " + mail +" Date Arrivee : "+ dateArrivee+" Date Depart : "+ dateDepart +" (";
 		if (estRoot())
 			res += "super-utilisateur";
 		else
 			res += ligue.toString();
 		return res + ")";
 	}
+
 	
 	public void setId(int id) 
 	{

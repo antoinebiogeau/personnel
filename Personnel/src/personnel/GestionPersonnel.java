@@ -1,6 +1,8 @@
 package personnel;
 
 import java.io.Serializable;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -45,7 +47,7 @@ public class GestionPersonnel implements Serializable
 	public GestionPersonnel()
 	{
 		if (gestionPersonnel != null)
-			throw new RuntimeException("Vous ne pouvez crÃ©er qu'une seuls instance de cet objet.");
+			throw new RuntimeException("Vous ne pouvez créer qu'une seuls instance de cet objet.");
 		ligues = new TreeSet<>();
 		gestionPersonnel = this;
 	}
@@ -58,7 +60,7 @@ public class GestionPersonnel implements Serializable
 	/**
 	 * Retourne la ligue dont administrateur est l'administrateur,
 	 * null s'il n'est pas un administrateur.
-	 * @param administrateur l'administrateur de la ligue recherchÃ©e.
+	 * @param administrateur l'administrateur de la ligue recherchée.
 	 * @return la ligue dont administrateur est l'administrateur.
 	 */
 	
@@ -71,10 +73,10 @@ public class GestionPersonnel implements Serializable
 	}
 
 	/**
-	 * Retourne toutes les ligues enregistrÃ©es.
-	 * @return toutes les ligues enregistrÃ©es.
+	 * Retourne toutes les ligues enregistrées.
+	 * @return toutes les ligues enregistrées.
 	 */
-	
+
 	public SortedSet<Ligue> getLigues()
 	{
 		return Collections.unmodifiableSortedSet(ligues);
@@ -94,8 +96,10 @@ public class GestionPersonnel implements Serializable
 		return ligue;
 	}
 
+	
 	void remove(Ligue ligue)
 	{
+		
 		gestionPersonnel.delete(ligue);
 		ligues.remove(ligue);
 	}
@@ -104,22 +108,25 @@ public class GestionPersonnel implements Serializable
 	{
 		return passerelle.insert(ligue);
 	}
-	
 	int insert(Employe employe) throws SauvegardeImpossible
 	{
+		if(employe.getNom() == "root")
+		{
+			return 0;
+		}
+		else {
 		return passerelle.insert(employe);
+		}
 	}
-	
-	void update(Ligue ligue) throws SauvegardeImpossible
+	void update(Ligue ligue) throws SauvegardeImpossible, SQLException
 	{
-		passerelle.updateLigue(ligue);
+		passerelle.update(ligue);
 	}
-	
-	void update(Employe employe, String column) throws SauvegardeImpossible
+	void update(Employe employe) throws SauvegardeImpossible, SQLException
 	{
-		passerelle.updateEmploye(employe, column);
+		passerelle.update(employe);
 	}
-	
+
 	void removeAdmin(Ligue ligue)
 	{
 		try {
@@ -128,7 +135,7 @@ public class GestionPersonnel implements Serializable
 			e.printStackTrace();
 		}
 	}
-
+	
 	/**
 	 * Retourne le root (super-utilisateur).
 	 * @return le root.
@@ -138,7 +145,6 @@ public class GestionPersonnel implements Serializable
 	{
 		return root;
 	}
-	
 	void delete(Employe employe)
 	{
 		try {
@@ -169,7 +175,5 @@ public class GestionPersonnel implements Serializable
 			e.printStackTrace();
 		}
 	}
-	
 
-	
 }

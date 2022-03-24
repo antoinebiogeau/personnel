@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.sql.SQLException;
 
 import personnel.Employe;
 import personnel.GestionPersonnel;
@@ -51,10 +52,45 @@ public class Serialization implements personnel.Passerelle
 	{
 		return -1;
 	}
-	
+
 	@Override
-	public int insert(Employe employe)throws SauvegardeImpossible
-	{
-		return -1;		
+	public int insert(Employe employé) throws SauvegardeImpossible {
+		// TODO Auto-generated method stub
+		return 0;
 	}
+
+	@Override
+	public void update(Ligue ligue) throws SauvegardeImpossible, SQLException {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void update(Employe employé) throws SauvegardeImpossible {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void deleteEmploye(Employe employe) throws SauvegardeImpossible {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteLigue(Ligue ligue) throws SauvegardeImpossible {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void newAdmin(Employe employe) throws SauvegardeImpossible {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeAdmin(Ligue ligue) throws SauvegardeImpossible {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
