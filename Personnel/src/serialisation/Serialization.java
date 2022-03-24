@@ -81,16 +81,12 @@ public class Serialization implements personnel.Passerelle
 		
 	}
 
-	@Override
-	public void newAdmin(Employe employe) throws SauvegardeImpossible {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 	@Override
-	public void removeAdmin(Ligue ligue) throws SauvegardeImpossible {
+	public int insertRoot(Employe employe) throws SauvegardeImpossible {
 		// TODO Auto-generated method stub
-		
+		return 0;
 	}
 
 }

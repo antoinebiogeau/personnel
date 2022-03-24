@@ -45,15 +45,11 @@ class TestEmploye {
 	}
 	
 	@Test
-	void setDateArrivee() throws SauvegardeImpossible
+	void setDateArrivee() throws SauvegardeImpossible, DateImpossible
 	{
 		Ligue ligue = gestionPersonnel.addLigue("TestLigue");
 		Employe employe = ligue.addEmploye("Lahmar", "Tabai", "lahmartabai@yahoo.fr", "azerty", LocalDate.parse("1990-01-27"), LocalDate.parse("2022-01-14"));
-		try {
-			employe.setDateArrivee(LocalDate.parse("2000-02-01"));
-		} catch (DateImpossible e) {
-			e.printStackTrace();
-		}
+		employe.setDateArrivee(LocalDate.parse("2000-02-01"));
 		assertEquals(LocalDate.parse("2000-02-01"), employe.getDateArrivee());
 	}
 	
@@ -66,15 +62,11 @@ class TestEmploye {
 	}
 	
 	@Test
-	void setDateDepart() throws SauvegardeImpossible
+	void setDateDepart() throws SauvegardeImpossible, DateImpossible
 	{
 		Ligue ligue = gestionPersonnel.addLigue("TestLigue");
 		Employe employe = ligue.addEmploye("Lahmar", "Tabai", "lahmartabai@yahoo.fr", "azerty", LocalDate.parse("1990-01-27"), LocalDate.parse("2022-01-14"));
-		try {
-			employe.setDateDepart(LocalDate.parse("2022-02-01"));
-		} catch (DateImpossible e) {
-			e.printStackTrace();
-		}
+		employe.setDateDepart(LocalDate.parse("2022-02-01"));
 		assertEquals(LocalDate.parse("2022-02-01"), employe.getDateDepart());
 	}
 	

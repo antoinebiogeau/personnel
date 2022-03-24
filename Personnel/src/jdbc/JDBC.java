@@ -25,7 +25,7 @@ public class JDBC implements Passerelle
 		}
 		catch (ClassNotFoundException e)
 		{
-			System.out.println("Pilote JDBC non installÃ©.");
+			System.out.println("Pilote JDBC non installé.");
 		}
 		catch (SQLException e)
 		{
@@ -109,18 +109,19 @@ public class JDBC implements Passerelle
 			throw new SauvegardeImpossible(exception);
 		}		
 	}
-	public void insertRoot(Employe employe) throws SauvegardeImpossible
+	public int insertRoot(Employe employe) throws SauvegardeImpossible
 	{
 		try
 		{
 			PreparedStatement instruction;
-			instruction = connection.prepareStatement("INSERT INTO employe (nom_emp, prenom_emp, mail_emp, password_emp, super_admin) VALUES (?,?,?,?,?)");
+			instruction = connection.prepareStatement("INSERT INTO `employé` (`nom_employe`, `prénom`, `mail`, `password`, type) VALUES (?,?,?,?,?)");
 			instruction.setString(1, employe.getNom());
 			instruction.setString(2, employe.getPrenom());
 			instruction.setString(3, employe.getMail());
 			instruction.setString(4, employe.getPassword());
 			instruction.setInt(5, 1);
 			instruction.executeUpdate();
+			return 0;
 		}
 		catch (SQLException exception)
 		{
@@ -169,8 +170,7 @@ public class JDBC implements Passerelle
 		PreparedStatement instruction;
 		instruction = connection.prepareStatement("UPDATE employé SET nom_employe = '"+ employé.getNom()+
 				"', prénom = '"+employé.getPrenom()+"',  mail = '"+employé.getMail()+"',  password ='"+
-				employé.getPassword()+"', type = "+employé.getType() +" WHERE idligue = "+ employé.getidligue() +
-				" AND idemployer = "+ employé.getid() +" ", Statement.RETURN_GENERATED_KEYS);
+				employé.getPassword()+"', type = "+employé.getType() +" WHERE idemployer = "+ employé.getid() +" ", Statement.RETURN_GENERATED_KEYS);
 		instruction.executeUpdate();
 		// TODO Auto-generated method stub
 	}
@@ -209,16 +209,6 @@ public class JDBC implements Passerelle
 		
 	}
 
-	@Override
-	public void newAdmin(Employe employe) throws SauvegardeImpossible {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public void removeAdmin(Ligue ligue) throws SauvegardeImpossible {
-		// TODO Auto-generated method stub
-		
-	}
 	
 }

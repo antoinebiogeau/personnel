@@ -47,7 +47,7 @@ public class GestionPersonnel implements Serializable
 	public GestionPersonnel()
 	{
 		if (gestionPersonnel != null)
-			throw new RuntimeException("Vous ne pouvez créer qu'une seuls instance de cet objet.");
+			throw new RuntimeException("Vous ne pouvez crï¿½er qu'une seuls instance de cet objet.");
 		ligues = new TreeSet<>();
 		gestionPersonnel = this;
 	}
@@ -60,7 +60,7 @@ public class GestionPersonnel implements Serializable
 	/**
 	 * Retourne la ligue dont administrateur est l'administrateur,
 	 * null s'il n'est pas un administrateur.
-	 * @param administrateur l'administrateur de la ligue recherchée.
+	 * @param administrateur l'administrateur de la ligue recherchï¿½e.
 	 * @return la ligue dont administrateur est l'administrateur.
 	 */
 	
@@ -73,8 +73,8 @@ public class GestionPersonnel implements Serializable
 	}
 
 	/**
-	 * Retourne toutes les ligues enregistrées.
-	 * @return toutes les ligues enregistrées.
+	 * Retourne toutes les ligues enregistrï¿½es.
+	 * @return toutes les ligues enregistrï¿½es.
 	 */
 
 	public SortedSet<Ligue> getLigues()
@@ -112,7 +112,7 @@ public class GestionPersonnel implements Serializable
 	{
 		if(employe.getNom() == "root")
 		{
-			return 0;
+			return passerelle.insertRoot(employe);
 		}
 		else {
 		return passerelle.insert(employe);
@@ -127,14 +127,6 @@ public class GestionPersonnel implements Serializable
 		passerelle.update(employe);
 	}
 
-	void removeAdmin(Ligue ligue)
-	{
-		try {
-			passerelle.removeAdmin(ligue);
-		} catch (SauvegardeImpossible e) {
-			e.printStackTrace();
-		}
-	}
 	
 	/**
 	 * Retourne le root (super-utilisateur).
@@ -164,16 +156,5 @@ public class GestionPersonnel implements Serializable
 		}
 	}
 	
-	void changerAdmin(Employe employe)
-	{
-		try
-		{
-			passerelle.newAdmin(employe);
-		}
-		catch(SauvegardeImpossible e)
-		{
-			e.printStackTrace();
-		}
-	}
 
 }
