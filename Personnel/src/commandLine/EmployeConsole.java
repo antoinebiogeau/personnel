@@ -43,10 +43,7 @@ public class EmployeConsole
 				() -> {
 					employe.setNom(getString("Nouveau nom : "));
 					try {
-						employe.update(employe);
-					} catch (SauvegardeImpossible e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						employe.update();
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -60,10 +57,7 @@ public class EmployeConsole
 		return new Option("Changer le prénom", "p", () -> {
 			employe.setPrenom(getString("Nouveau prénom : "));
 			try {
-				employe.update(employe);
-			} catch (SauvegardeImpossible e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				employe.update();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -76,10 +70,7 @@ public class EmployeConsole
 		return new Option("Changer le mail", "e", () -> {
 			employe.setMail(getString("Nouveau mail : "));
 			try {
-				employe.update(employe);
-			} catch (SauvegardeImpossible e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				employe.update();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -92,10 +83,7 @@ public class EmployeConsole
 		return new Option("Changer le password", "x", () -> {
 			employe.setPassword(getString("Nouveau password : "));
 			try {
-				employe.update(employe);
-			} catch (SauvegardeImpossible e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				employe.update();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -104,27 +92,13 @@ public class EmployeConsole
 	}
 	
 	private Option supprimerEmploye(final Employe employe) {
-		return new Option("supprimer", "r", () -> {try {
-			employe.delete(employe);
-		} catch (SauvegardeImpossible e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}});
+		return new Option("supprimer", "r", () -> {employe.remove();});
 	}
 	
 	private Option MetAdmin(final Employe employe) {
 		Ligue ligue = employe.getLigue();
 		return new Option("Met admin de la ligue", "k", () -> {
 			ligue.setAdministrateur(employe);
-			try {
-				employe.update(employe);
-			} catch (SauvegardeImpossible e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 			});
 	}
 

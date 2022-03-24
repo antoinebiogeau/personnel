@@ -213,12 +213,6 @@ public class Employe implements Serializable, Comparable<Employe>
 	public void setType(int type) {
 		this.type = type;
 	}
-
-	/**
-	 * Supprime l'employé. Si celui-ci est un administrateur, le root
-	 * récupère les droits d'administration sur sa ligue.
-	 */
-	
 	public void remove()
 	{
 		Employe root = gestionPersonnel.getRoot();
@@ -226,24 +220,30 @@ public class Employe implements Serializable, Comparable<Employe>
 		{
 			if (estAdmin(getLigue()))
 				getLigue().setAdministrateur(root);
-			getLigue().remove(this);
-		}
-		else
-			throw new ImpossibleDeSupprimerRoot();
-	}
-	public void delete(Employe employe) throws SauvegardeImpossible {
-		Employe root = gestionPersonnel.getRoot();
-		if (this != root)
-		{
-			if (estAdmin(getLigue()))
-				getLigue().setAdministrateur(root);
 			gestionPersonnel.delete(this);
+			getLigue().remove(this);
+			
 		}
 		else
 			throw new ImpossibleDeSupprimerRoot();
 	}
-	public int update(Employe employe) throws SauvegardeImpossible, SQLException {
-		return gestionPersonnel.update(employe);
+
+	/**
+	 * Supprime l'employé. Si celui-ci est un administrateur, le root
+	 * récupère les droits d'administration sur sa ligue.
+	 * @throws SQLException 
+	 */
+	public void update() throws SQLException
+	{
+		try {
+			gestionPersonnel.update(this);
+		} catch (SauvegardeImpossible e) {
+			
+			e.printStackTrace();
+		}
+	}
+	public GestionPersonnel getGestion() {
+		return gestionPersonnel;
 	}
 
 	@Override

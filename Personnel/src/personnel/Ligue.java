@@ -141,21 +141,29 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	 * @throws SauvegardeImpossible 
 	 */
 	
-	public int remove() throws SauvegardeImpossible
-	{
-		return gestionPersonnel.remove(this);
-	}
-	
 
 	@Override
 	public int compareTo(Ligue autre)
 	{
 		return getNom().compareTo(autre.getNom());
 	}
-	
-	
-	public int updateLigue(Ligue ligue) throws SauvegardeImpossible, SQLException{
-		return gestionPersonnel.updateLigue(ligue);
+	public void remove()
+	{
+		gestionPersonnel.remove(this);
+	}
+	public void removeAdmin()
+	{
+		gestionPersonnel.removeAdmin(this);
+		administrateur = gestionPersonnel.getRoot();
+	}
+	public void update() throws SQLException
+	{
+		try {
+			gestionPersonnel.update(this);
+		} catch (SauvegardeImpossible e) {
+			
+			e.printStackTrace();
+		}
 	}
 	
 	@Override

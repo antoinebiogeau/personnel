@@ -88,8 +88,8 @@ public class LigueConsole
 				() -> {
 					ligue.setNom(getString("Nouveau nom : "));
 					try {
-						ligue.updateLigue(ligue);
-					} catch (SauvegardeImpossible | SQLException e) {
+						ligue.update();
+					} catch (SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
@@ -177,13 +177,8 @@ public class LigueConsole
 	private Option supprimer(Ligue ligue)
 	{
 		return new Option("Supprimer", "d", () -> {
-			try {
-				ligue.remove()
-				;
-			} catch (SauvegardeImpossible e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}});
+			ligue.remove()
+			;});
 	}
 	
 	
