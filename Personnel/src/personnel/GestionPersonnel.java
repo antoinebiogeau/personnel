@@ -96,12 +96,37 @@ public class GestionPersonnel implements Serializable
 
 	void remove(Ligue ligue)
 	{
+		gestionPersonnel.delete(ligue);
 		ligues.remove(ligue);
 	}
 	
 	int insert(Ligue ligue) throws SauvegardeImpossible
 	{
 		return passerelle.insert(ligue);
+	}
+	
+	int insert(Employe employe) throws SauvegardeImpossible
+	{
+		return passerelle.insert(employe);
+	}
+	
+	void update(Ligue ligue) throws SauvegardeImpossible
+	{
+		passerelle.updateLigue(ligue);
+	}
+	
+	void update(Employe employe, String column) throws SauvegardeImpossible
+	{
+		passerelle.updateEmploye(employe, column);
+	}
+	
+	void removeAdmin(Ligue ligue)
+	{
+		try {
+			passerelle.removeAdmin(ligue);
+		} catch (SauvegardeImpossible e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -113,8 +138,38 @@ public class GestionPersonnel implements Serializable
 	{
 		return root;
 	}
-
-	int insert(Employe employe) throws SauvegardeImpossible {
-		return passerelle.insert(employe);
+	
+	void delete(Employe employe)
+	{
+		try {
+			passerelle.deleteEmploye(employe);
+		} catch (SauvegardeImpossible e) {
+			
+			e.printStackTrace();
+		}
 	}
+	void delete(Ligue ligue)
+	{
+		try {
+			passerelle.deleteLigue(ligue);;
+		} catch (SauvegardeImpossible e) {
+			
+			e.printStackTrace();
+		}
+	}
+	
+	void changerAdmin(Employe employe)
+	{
+		try
+		{
+			passerelle.newAdmin(employe);
+		}
+		catch(SauvegardeImpossible e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+
+	
 }

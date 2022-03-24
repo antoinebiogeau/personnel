@@ -22,7 +22,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	private LocalDate dateArrivee;
 	private LocalDate dateDepart;
 	private int type;
-	private int id = -1;
+	private int id;
 	
 	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrivee, LocalDate datedepart) 	{
 		this.gestionPersonnel = gestionPersonnel;
@@ -40,19 +40,7 @@ public class Employe implements Serializable, Comparable<Employe>
 			e.printStackTrace();
 		} 
 	}
-	Employe(GestionPersonnel gestionPersonnel, int id, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrivee, LocalDate datedepart, int type)
-	{
-		this.nom = nom;
-		this.prenom = prenom;
-		this.password = password;
-		this.mail = mail;
-		this.ligue = ligue;
-		this.dateArrivee = dateArrivee;
-		this.dateDepart = datedepart;
-		this.type = type;
-		this.gestionPersonnel = gestionPersonnel;
-		this.id = id;
-	}
+	
 	/**
 	 * Retourne vrai ssi l'employé est administrateur de la ligue 
 	 * passée en paramètre.
@@ -84,10 +72,11 @@ public class Employe implements Serializable, Comparable<Employe>
 		return dateArrivee;
 	}
 	
-	public void setDateArrivee(LocalDate dateArrivee) 
+	public void setDateArrivee(LocalDate dateArrivee) throws DateImpossible
 	{
 		if(dateArrivee != null && dateDepart != null && dateArrivee.isBefore(dateDepart))
-		this.dateArrivee = dateArrivee;
+			throw new DateImpossible();
+			this.dateArrivee = dateArrivee;
 	}
 	
 	
@@ -96,10 +85,11 @@ public class Employe implements Serializable, Comparable<Employe>
 		return dateDepart;
 	}
 	
-	public void setDateDepart(LocalDate dateDepart) 
+	public void setDateDepart(LocalDate dateDepart) throws DateImpossible
 	{
 		if(dateArrivee != null && dateDepart != null && dateDepart.isAfter(dateArrivee))
-		this.dateDepart = dateDepart;
+			throw new DateImpossible();
+			this.dateDepart = dateDepart;
 	}
 	
 	
@@ -196,9 +186,11 @@ public class Employe implements Serializable, Comparable<Employe>
 	{
 		return ligue;
 	}
+	
 	public int getType() {
 		return this.type;
 	}
+	
 	public void setType(int type) {
 		this.type = type;
 	}
@@ -239,6 +231,29 @@ public class Employe implements Serializable, Comparable<Employe>
 		else
 			res += ligue.toString();
 		return res + ")";
+	}
+	
+	public void setId(int id) 
+	{
+		this.id = id;
+	}
+	
+	public int getId()
+	{
+		return id;
+	}
+	
+	public void update(String column)
+	{
+		try {
+			gestionPersonnel.update(this, column);
+		} catch (SauvegardeImpossible e) {
+			
+			e.printStackTrace();
+		}
+	}
+	public GestionPersonnel getGestion() {
+		return gestionPersonnel;
 	}
 	
 }

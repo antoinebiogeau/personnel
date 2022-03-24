@@ -121,8 +121,22 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	public Employe addEmploye(String nom, String prenom, String mail, String password, LocalDate dateArrivee, LocalDate dateDepart) {
 		Employe employe = new Employe(this.gestionPersonnel, this, nom, prenom, mail, password, dateArrivee, dateDepart);
 		employes.add(employe);
+		try {
+			employe.setId(gestionPersonnel.insert(employe));
+		} catch (SauvegardeImpossible e) {
+			e.printStackTrace();
+		}
 		return employe;
 	}
+	
+	public Employe addEmploye(String nom, String prenom, String mail, String password, LocalDate dateArrive, LocalDate dateDepart, int id)
+	{
+		Employe employe = new Employe(this.gestionPersonnel, this, nom, prenom, mail, password, dateArrive, dateDepart);
+		employe.setId(id);
+		employes.add(employe);
+		return employe;
+	}
+	
 	
 	void remove(Employe employe)
 	{
@@ -137,6 +151,22 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	public void remove()
 	{
 		gestionPersonnel.remove(this);
+	}
+	
+	public void removeAdmin()
+	{
+		gestionPersonnel.removeAdmin(this);
+		administrateur = gestionPersonnel.getRoot();
+	}
+	
+	public void update()
+	{
+		try {
+			gestionPersonnel.update(this);
+		} catch (SauvegardeImpossible e) {
+			
+			e.printStackTrace();
+		}
 	}
 	
 

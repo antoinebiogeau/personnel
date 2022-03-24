@@ -1,12 +1,13 @@
 package jdbc;
 
-import java.sql.DriverManager;
+import java.sql.DriverManager; 
 import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import personnel.*;
 
@@ -23,7 +24,7 @@ public class JDBC implements Passerelle
 		}
 		catch (ClassNotFoundException e)
 		{
-			System.out.println("Pilote JDBC non installÃ©.");
+			System.out.println("Pilote JDBC non installé.");
 		}
 		catch (SQLException e)
 		{
@@ -75,7 +76,7 @@ public class JDBC implements Passerelle
 		try 
 		{
 			PreparedStatement instruction;
-			instruction = connection.prepareStatement("insert into LIGUE (nom) values (?)", Statement.RETURN_GENERATED_KEYS);
+			instruction = connection.prepareStatement("INSERT INTO ligue (nom) values (?)", Statement.RETURN_GENERATED_KEYS);
 			instruction.setString(1, ligue.getNom());		
 			instruction.executeUpdate();
 			ResultSet id = instruction.getGeneratedKeys();

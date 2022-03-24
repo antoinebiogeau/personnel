@@ -49,7 +49,11 @@ class TestEmploye {
 	{
 		Ligue ligue = gestionPersonnel.addLigue("TestLigue");
 		Employe employe = ligue.addEmploye("Lahmar", "Tabai", "lahmartabai@yahoo.fr", "azerty", LocalDate.parse("1990-01-27"), LocalDate.parse("2022-01-14"));
-		employe.setDateArrivee(LocalDate.parse("2000-02-01"));
+		try {
+			employe.setDateArrivee(LocalDate.parse("2000-02-01"));
+		} catch (DateImpossible e) {
+			e.printStackTrace();
+		}
 		assertEquals(LocalDate.parse("2000-02-01"), employe.getDateArrivee());
 	}
 	
@@ -66,7 +70,11 @@ class TestEmploye {
 	{
 		Ligue ligue = gestionPersonnel.addLigue("TestLigue");
 		Employe employe = ligue.addEmploye("Lahmar", "Tabai", "lahmartabai@yahoo.fr", "azerty", LocalDate.parse("1990-01-27"), LocalDate.parse("2022-01-14"));
-		employe.setDateDepart(LocalDate.parse("2022-02-01"));
+		try {
+			employe.setDateDepart(LocalDate.parse("2022-02-01"));
+		} catch (DateImpossible e) {
+			e.printStackTrace();
+		}
 		assertEquals(LocalDate.parse("2022-02-01"), employe.getDateDepart());
 	}
 	

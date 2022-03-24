@@ -22,7 +22,7 @@ public class EmployeConsole
 
 	Option editerEmploye(Employe employe)
 	{
-			Menu menu = new Menu("GÃ©rer le compte " + employe.getNom(), "c");
+			Menu menu = new Menu("Gérer le compte " + employe.getNom(), "c");
 			menu.add(afficher(employe));
 			menu.add(changerNom(employe));
 			menu.add(changerPrenom(employe));
