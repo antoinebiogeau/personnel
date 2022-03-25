@@ -119,9 +119,8 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	 * @return l'employé créé. 
 	 * @throws SauvegardeImpossible 
 	 */
-	public Employe addEmploye(String nom, String prenom, String mail, String password, LocalDate dateArrive, LocalDate dateDepart, int id,int type) {
-        Employe employe = new Employe(this.gestionPersonnel, this, nom, prenom, mail, password, dateArrive, dateDepart);
-        employe.setId(id);
+	public Employe addEmploye(String nom, String prenom, String mail, String password, LocalDate dateArrive, LocalDate dateDepart, int id) {
+        Employe employe = new Employe(this.gestionPersonnel, this, nom, prenom, mail, password, dateArrive, dateDepart, id);
         employes.add(employe);
         return employe;
     }
@@ -157,7 +156,7 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	}
 	public void update() throws SQLException
 	{
-		try {
+		try { /* TODO pas d'entre sortie enlève try catch*/
 			gestionPersonnel.update(this);
 		} catch (SauvegardeImpossible e) {
 			

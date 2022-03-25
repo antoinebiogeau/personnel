@@ -92,7 +92,12 @@ public class EmployeConsole
 	}
 	
 	private Option supprimerEmploye(final Employe employe) {
-		return new Option("supprimer", "r", () -> {employe.remove();});
+		return new Option("supprimer", "r", () -> {try {
+			employe.remove();
+		} catch (SauvegardeImpossible e) {
+			// TODO modifier les messages 
+			e.printStackTrace();
+		}});
 	}
 	
 	private Option MetAdmin(final Employe employe) {

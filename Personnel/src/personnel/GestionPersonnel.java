@@ -24,16 +24,17 @@ public class GestionPersonnel implements Serializable
 	private SortedSet<Ligue> ligues;
 	private Employe root = new Employe(this, null, "root", "", "", "toor", null, null);
 	public final static int SERIALIZATION = 1, JDBC = 2, 
-			TYPE_PASSERELLE = JDBC;  
+			TYPE_PASSERELLE = SERIALIZATION;  
 	private static Passerelle passerelle = TYPE_PASSERELLE == JDBC ? new jdbc.JDBC() : new serialisation.Serialization();	
 	
 	/**
 	 * Retourne l'unique instance de cette classe.
 	 * Crée cet objet s'il n'existe déjà.
 	 * @return l'unique objet de type {@link GestionPersonnel}.
+	 * @throws SauvegardeImpossible 
 	 */
 	
-	public static GestionPersonnel getGestionPersonnel()
+	public static GestionPersonnel getGestionPersonnel() throws SauvegardeImpossible
 	{
 		if (gestionPersonnel == null)
 		{
@@ -118,11 +119,11 @@ public class GestionPersonnel implements Serializable
 		return passerelle.insert(employe);
 		}
 	}
-	void update(Ligue ligue) throws SauvegardeImpossible, SQLException
+	void update(Ligue ligue) throws SauvegardeImpossible
 	{
 		passerelle.update(ligue);
 	}
-	void update(Employe employe) throws SauvegardeImpossible, SQLException
+	void update(Employe employe) throws SauvegardeImpossible
 	{
 		passerelle.update(employe);
 	}
@@ -137,19 +138,15 @@ public class GestionPersonnel implements Serializable
 	{
 		return root;
 	}
-	void delete(Employe employe)
+	void delete(Employe employe) throws SauvegardeImpossible
 	{
-		try {
 			passerelle.deleteEmploye(employe);
-		} catch (SauvegardeImpossible e) {
 			
-			e.printStackTrace();
-		}
 	}
 	void delete(Ligue ligue)
 	{
 		try {
-			passerelle.deleteLigue(ligue);;
+			passerelle.deleteLigue(ligue);    /* Surchareg pour les deux méthodes delete */
 		} catch (SauvegardeImpossible e) {
 			
 			e.printStackTrace();

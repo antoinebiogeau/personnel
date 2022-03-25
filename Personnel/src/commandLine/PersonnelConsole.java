@@ -73,9 +73,15 @@ public class PersonnelConsole
 	
 	public static void main(String[] args)
 	{
-		PersonnelConsole personnelConsole = 
-				new PersonnelConsole(GestionPersonnel.getGestionPersonnel());
-		if (personnelConsole.verifiePassword())
-			personnelConsole.start();
+		PersonnelConsole personnelConsole;
+		try {
+			personnelConsole = new PersonnelConsole(GestionPersonnel.getGestionPersonnel());
+			if (personnelConsole.verifiePassword())
+				personnelConsole.start();
+		} catch (SauvegardeImpossible e) {
+			// TODO message à afficher
+			e.printStackTrace();
+		}
+		
 	}
 }

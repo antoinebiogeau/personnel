@@ -34,7 +34,7 @@ public class JDBC implements Passerelle
 	}
 	
 	@Override
-    public GestionPersonnel getGestionPersonnel() {
+    public GestionPersonnel getGestionPersonnel() throws SauvegardeImpossible {
         GestionPersonnel gestionPersonnel = new GestionPersonnel();
 
         try {
@@ -58,14 +58,15 @@ public class JDBC implements Passerelle
                     LocalDate date_arrivee = employe.getDate("date_d'entré") != null ? LocalDate.parse(employe.getString("date_d'entré")) : null;
                     LocalDate date_depart = employe.getDate("date_de_sortie") != null ? LocalDate.parse(employe.getString("date_de_sortie")) : null;
                     int type = employe.getType();
-                    Employe employee = ligue.addEmploye(nom, prenom, mail, password, date_arrivee, date_depart,id, type);
+                    Employe employee = ligue.addEmploye(nom, prenom, mail, password, date_arrivee, date_depart,id);
                     if (employe.getBoolean("type")) {
                         ligue.setAdministrateur(employee);
                     }
                 }
             }
         } catch (SQLException e) {
-            System.out.println(e);
+        	System.out.println(e);
+        	throw new SauvegardeImpossible(e); 
         }
 
         return gestionPersonnel;
@@ -101,7 +102,7 @@ public class JDBC implements Passerelle
 			instruction.executeUpdate();
 			ResultSet id = instruction.getGeneratedKeys();
 			id.next();
-			return id.getInt(1);
+			return id.getInt(1);  /* id de la ligue */
 		} 
 		catch (SQLException exception) 
 		{
@@ -121,13 +122,13 @@ public class JDBC implements Passerelle
 			instruction.setString(4, employe.getPassword());
 			instruction.setInt(5, 1);
 			instruction.executeUpdate();
-			return 0;
+			return 0; /* TODO à modif return id du root*/
 		}
 		catch (SQLException exception)
 		{
 			throw new SauvegardeImpossible(exception);
 		}
-	}
+	} /* TODO à enlever la methode insert root  */
 	@Override
 	public int insert(Employe employé) throws SauvegardeImpossible 
 	{
@@ -142,7 +143,7 @@ public class JDBC implements Passerelle
 				instruction.setString(5, employé.getMail());
 				instruction.setString(6, employé.getPrenom());
 				instruction.setInt(7, employé.getType());
-				instruction.setInt(8, employé.getidligue());
+				instruction.setInt(8, employé.getIdLigue());
 				instruction.executeUpdate();
 				ResultSet idemployer = instruction.getGeneratedKeys();
 				idemployer.next();
@@ -157,22 +158,39 @@ public class JDBC implements Passerelle
 	}
 	
 	
-	//Update de ligue et employé
+	//Update de ligue et employé  
+	
+	/* TODO  Faite une requette préparée ligne 167 et ligne 174, 175 et 176  nom = Alex',type='2 */
+	
 	@Override
-	public void update(Ligue ligue) throws SauvegardeImpossible, SQLException {
-		PreparedStatement instruction;
-		instruction = connection.prepareStatement("UPDATE ligue SET nom = '"+ligue.getNom()+"' WHERE idligue = "+ligue.getId()+" ", Statement.RETURN_GENERATED_KEYS);		
-		instruction.executeUpdate();
+	public void update(Ligue ligue) throws SauvegardeImpossible {
+		
+		try {
+			PreparedStatement instruction;
+			instruction = connection.prepareStatement("UPDATE ligue SET nom = '"+ligue.getNom()+"' WHERE idligue = "+ligue.getId()+" ", Statement.RETURN_GENERATED_KEYS);
+			instruction.executeUpdate();
+		} catch (SQLException e) {
+			
+			throw new SauvegardeImpossible(e);
+		}		
+		
 	}
 
 	@Override
-	public void update(Employe employé) throws SauvegardeImpossible, SQLException {
-		PreparedStatement instruction;
-		instruction = connection.prepareStatement("UPDATE employé SET nom_employe = '"+ employé.getNom()+
-				"', prénom = '"+employé.getPrenom()+"',  mail = '"+employé.getMail()+"',  password ='"+
-				employé.getPassword()+"', type = "+employé.getType() +" WHERE idemployer = "+ employé.getid() +" ", Statement.RETURN_GENERATED_KEYS);
-		instruction.executeUpdate();
-		// TODO Auto-generated method stub
+	public void update(Employe employé) throws SauvegardeImpossible {
+		
+		try {
+			PreparedStatement instruction;
+			instruction = connection.prepareStatement("UPDATE employé SET nom_employe = '"+ employé.getNom()+
+					"', prénom = '"+employé.getPrenom()+"',  mail = '"+employé.getMail()+"',  password ='"+
+					employé.getPassword()+"', type = "+employé.getType() +" WHERE idemployer = "+ employé.getid() +" ", Statement.RETURN_GENERATED_KEYS);
+			instruction.executeUpdate();
+		} catch (SQLException e) {
+			
+			throw new SauvegardeImpossible(e);
+		}
+		
+	
 	}
 	
 

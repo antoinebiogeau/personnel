@@ -60,7 +60,7 @@ public class Serialization implements personnel.Passerelle
 	}
 
 	@Override
-	public void update(Ligue ligue) throws SauvegardeImpossible, SQLException {
+	public void update(Ligue ligue) throws SauvegardeImpossible {
 		// TODO Auto-generated method stub
 	}
 
