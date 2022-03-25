@@ -94,7 +94,11 @@ public class Employe implements Serializable, Comparable<Employe>
 	{
 		if(dateArrivee != null && dateDepart != null && dateArrivee.isBefore(dateDepart))
 			throw new DateImpossible();
+		else 
+		{
 			this.dateArrivee = dateArrivee;
+		}
+			
 	}
 	
 	
@@ -107,7 +111,11 @@ public class Employe implements Serializable, Comparable<Employe>
 	{
 		if(dateArrivee != null && dateDepart != null && dateDepart.isAfter(dateArrivee))
 			throw new DateImpossible();
+		else 
+		{
 			this.dateDepart = dateDepart;
+		}
+			
 	}
 	public int getidligue() {
 		return this.ligue.getId();

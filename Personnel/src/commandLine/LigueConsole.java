@@ -4,6 +4,7 @@ import static commandLineMenus.rendering.examples.util.InOut.getString;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 import commandLineMenus.List;
@@ -117,27 +118,22 @@ public class LigueConsole
 					prenom = getString("prenom : ");
 					mail = getString("mail : ");
 					password = getString("password : ");
-					Arrivee = LocalDate.parse(parseErr("Date Arrivee (YYYY-MM-DD) : "));
-					Depart = LocalDate.parse(parseErr("Date Depart (YYYY-MM-DD) : "));
+					Arrivee = parseDate("Date Arrivee (YYYY-MM-DD) : ");
+					Depart = parseDate("Date Depart (YYYY-MM-DD) : ");
 					ligue.addEmploye(nom, prenom, mail, password, Arrivee, Depart);
 				}
 		);
 	}
 
-	public String parseErr(String str)
-	{
-		String args = getString(str);
-		tools tools = new tools();
-
-		if (10 == args.length() && tools.verif_forma(args))
-			return args;
-		try {
-			throw new BonsoirNon();
-		}
-		catch(BonsoirNon e) {
-			return parseErr(str);
-		}
-	}
+	  private LocalDate parseDate(String string){
+	        while(true)
+	            try {
+	            return LocalDate.parse(getString(string));
+	             }
+	        catch(DateTimeParseException e) {
+	             System.out.println("Erreur!");
+	             }
+	    }
 
 	private Menu gererEmployes(Ligue ligue)
 	{
