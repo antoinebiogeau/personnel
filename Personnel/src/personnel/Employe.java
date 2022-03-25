@@ -90,10 +90,11 @@ public class Employe implements Serializable, Comparable<Employe>
 		return dateArrivee;
 	}
 	
-	public void setDateArrivee(LocalDate dateArrivee) 
+	public void setDateArrivee(LocalDate dateArrivee) throws DateImpossible
 	{
 		if(dateArrivee != null && dateDepart != null && dateArrivee.isBefore(dateDepart))
-		this.dateArrivee = dateArrivee;
+			throw new DateImpossible();
+			this.dateArrivee = dateArrivee;
 	}
 	
 	
@@ -102,10 +103,11 @@ public class Employe implements Serializable, Comparable<Employe>
 		return dateDepart;
 	}
 	
-	public void setDateDepart(LocalDate dateDepart) 
+	public void setDateDepart(LocalDate dateDepart) throws DateImpossible
 	{
 		if(dateArrivee != null && dateDepart != null && dateDepart.isAfter(dateArrivee))
-		this.dateDepart = dateDepart;
+			throw new DateImpossible();
+			this.dateDepart = dateDepart;
 	}
 	public int getidligue() {
 		return this.ligue.getId();
