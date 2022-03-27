@@ -1,5 +1,9 @@
-CREATE DATABASE IF NOT EXISTS `LIGUES` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `LIGUES`;
+-- Ici on a mis la ligne de création de la base de donnée en commentaire pour que chacun crée sa propre base de donnés :
+
+-- CREATE DATABASE IF NOT EXISTS `LIGUES` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+-- USE `LIGUES`;
+
+
 
 CREATE TABLE `EMPLOYÉ` (
   `idemployé`INT NOT NULL AUTO_INCREMENT,
