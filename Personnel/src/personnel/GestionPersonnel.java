@@ -98,9 +98,8 @@ public class GestionPersonnel implements Serializable
 	}
 
 	
-	void remove(Ligue ligue)
+	void remove(Ligue ligue) throws SauvegardeImpossible
 	{
-		
 		gestionPersonnel.delete(ligue);
 		ligues.remove(ligue);
 	}
@@ -140,17 +139,11 @@ public class GestionPersonnel implements Serializable
 	}
 	void delete(Employe employe) throws SauvegardeImpossible
 	{
-			passerelle.deleteEmploye(employe);
-			
+			passerelle.deleteEmploye(employe);	
 	}
-	void delete(Ligue ligue)
+	void delete(Ligue ligue) throws SauvegardeImpossible
 	{
-		try {
-			passerelle.deleteLigue(ligue);    /* Surchareg pour les deux méthodes delete */
-		} catch (SauvegardeImpossible e) {
-			
-			e.printStackTrace();
-		}
+			passerelle.deleteLigue(ligue);    /* Surcharge pour les deux méthodes delete */
 	}
 	
 

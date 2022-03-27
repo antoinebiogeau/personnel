@@ -45,7 +45,6 @@ public class EmployeConsole
 					try {
 						employe.update();
 					} catch (SQLException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					}
@@ -59,7 +58,6 @@ public class EmployeConsole
 			try {
 				employe.update();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			;});
@@ -72,7 +70,6 @@ public class EmployeConsole
 			try {
 				employe.update();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			});
@@ -85,7 +82,6 @@ public class EmployeConsole
 			try {
 				employe.update();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			});
@@ -95,7 +91,6 @@ public class EmployeConsole
 		return new Option("supprimer", "r", () -> {try {
 			employe.remove();
 		} catch (SauvegardeImpossible e) {
-			// TODO modifier les messages 
 			e.printStackTrace();
 		}});
 	}

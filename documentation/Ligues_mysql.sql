@@ -3,6 +3,10 @@
 -- CREATE DATABASE IF NOT EXISTS `LIGUES` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 -- USE `LIGUES`;
 
+-- Niveau de privilège de l'employé : 
+--  0 => employé simple
+--  1 => admin
+--  2 => super admin
 
 
 CREATE TABLE `EMPLOYÉ` (
