@@ -9,7 +9,7 @@ public class DateImpossible extends Exception {
 
 	public DateImpossible()
 	{
-		super("La date d'arrivée doit être inférieur à la date de départ");
-		System.err.println("La date d'arrivée doit être inférieur à la date de départ");
+		super("La date d'arrivÃ©e doit Ã©tre infÃ©rieur Ã  la date de dÃ©part");
+		System.err.println("La date d'arrivÃ©e doit Ã©tre infÃ©rieur Ã  la date de dÃ©part");
 	}
 }
