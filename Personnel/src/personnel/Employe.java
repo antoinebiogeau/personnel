@@ -215,6 +215,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	}
 	public int getType() {
 		/* TODO if pour savoir le type */
+		
 		return 0;
 	}
 	
