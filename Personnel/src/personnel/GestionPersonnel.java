@@ -48,7 +48,7 @@ public class GestionPersonnel implements Serializable
 	public GestionPersonnel()
 	{
 		if (gestionPersonnel != null)
-			throw new RuntimeException("Vous ne pouvez cr�er qu'une seuls instance de cet objet.");
+			throw new RuntimeException("Vous ne pouvez créer qu'une seuls instance de cet objet.");
 		ligues = new TreeSet<>();
 		gestionPersonnel = this;
 	}
@@ -61,7 +61,7 @@ public class GestionPersonnel implements Serializable
 	/**
 	 * Retourne la ligue dont administrateur est l'administrateur,
 	 * null s'il n'est pas un administrateur.
-	 * @param administrateur l'administrateur de la ligue recherch�e.
+	 * @param administrateur l'administrateur de la ligue recherchée.
 	 * @return la ligue dont administrateur est l'administrateur.
 	 */
 	
@@ -74,8 +74,8 @@ public class GestionPersonnel implements Serializable
 	}
 
 	/**
-	 * Retourne toutes les ligues enregistr�es.
-	 * @return toutes les ligues enregistr�es.
+	 * Retourne toutes les ligues enregistrées.
+	 * @return toutes les ligues enregistrées.
 	 */
 
 	public SortedSet<Ligue> getLigues()
@@ -110,13 +110,7 @@ public class GestionPersonnel implements Serializable
 	}
 	int insert(Employe employe) throws SauvegardeImpossible
 	{
-		if(employe.getNom() == "root")
-		{
-			return passerelle.insertRoot(employe);
-		}
-		else {
 		return passerelle.insert(employe);
-		}
 	}
 	void update(Ligue ligue) throws SauvegardeImpossible
 	{
