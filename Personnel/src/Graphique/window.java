@@ -1,6 +1,10 @@
 package Graphique;
 
 import static commandLineMenus.rendering.examples.util.InOut.getString;
+
+import java.util.ArrayList;
+
+import commandLineMenus.List;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -9,11 +13,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import personnel.GestionPersonnel;
+import personnel.Ligue;
 import personnel.SauvegardeImpossible;
 public class window extends Application implements EventHandler<ActionEvent> {
 	public void gg() throws SauvegardeImpossible {
@@ -25,10 +31,13 @@ public class window extends Application implements EventHandler<ActionEvent> {
 	Stage LoginWindow;
 	TextField password;
 	TextField addligue;
-	Scene scene1, scene2;
+	Scene scene1, scene2, scene3;
 	Button button3;
 	Label label2;
 	Label labellistligue;
+	Label label3;
+	ListView<String> listViewligue;
+	Ligue ligue;
 	
 	@Override
 	public void start (Stage primaryStage) throws SauvegardeImpossible{
@@ -50,7 +59,9 @@ public class window extends Application implements EventHandler<ActionEvent> {
 		
 		//fenetre 2
 		label2 = new Label("Menu Ligue");
-		labellistligue = new Label(GestionPersonnel.getGestionPersonnel().getLigues().toString());
+		listViewligue = new ListView<>();
+		
+		listViewligue.getItems().addAll(GestionPersonnel.getGestionPersonnel().getLigues().toString().split(" "));
 		
 		Button2 = new Button("Back");
 		Button2.setOnAction(this);
@@ -59,12 +70,25 @@ public class window extends Application implements EventHandler<ActionEvent> {
 		button3.setOnAction(this);
 		
 		VBox layout2 = new VBox(20);
-		layout2.getChildren().addAll(Button2,label2, labellistligue,addligue,button3);
+		layout2.getChildren().addAll(Button2,label2, listViewligue,addligue,button3);
 		scene2 = new Scene(layout2,400,300);
+		
+		
+		//fenetre 3
+		label3 = new Label("");
+		ButtonLogin = new Button("Login");
+		ButtonLogin.setOnAction(this);
+		password = new TextField("");
+		
+		VBox layout3 = new VBox(20);
+		layout3.getChildren().addAll(label,password,ButtonLogin);
+		scene3 = new Scene(layout3,300,250);
 		
 		LoginWindow.setScene(scene1);
 		LoginWindow.show();
 	}
+	
+	
 
 	public static void main(String[] args) {
 	    launch(args);
@@ -95,12 +119,22 @@ public class window extends Application implements EventHandler<ActionEvent> {
 			System.out.println("pouf");
 			try {
 				GestionPersonnel.getGestionPersonnel().addLigue(addligue.getText());
-				labellistligue.setText(GestionPersonnel.getGestionPersonnel().getLigues().toString());
+				listViewligue.getItems().removeAll(GestionPersonnel.getGestionPersonnel().getLigues().toString().split(" "));
+				listViewligue.getItems().addAll(GestionPersonnel.getGestionPersonnel().getLigues().toString().split(" "));
 			} catch (SauvegardeImpossible e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-	}		
+			
+		}
+		if(event.getSource()==listViewligue) {
+			int x = listViewligue.getSelectionModel().getSelectedIndex();
+			
+			LoginWindow.setScene(scene3);
+			
+		}
+		
+	
 }
 }
 	
