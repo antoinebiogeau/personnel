@@ -34,7 +34,7 @@ public class window extends Application implements EventHandler<ActionEvent> {
 	TextField password;
 	TextField addligue;
 	Scene scene1, scene2;
-	Scene scene4;
+	Scene scene4, scene5;
 	Button button3;
 	Label label2;
 	Label labellistligue;
@@ -47,6 +47,14 @@ public class window extends Application implements EventHandler<ActionEvent> {
 	Button SelectLigue;
 	ListView<Employe> listViewEmploye;
 	Button Back;
+	Button SelectEmp;
+	Employe employe;
+	TextField nomEmp;
+	TextField PrenomEmp;
+	TextField mailEmp;
+	TextField PasswordEmp;
+	Button UpdateEmp;
+	Label label4;
 	private ObservableList<Employe> observableEmploye;
 	private ObservableList<Ligue> observableLigues;
 	
@@ -90,22 +98,36 @@ public class window extends Application implements EventHandler<ActionEvent> {
 		
 		
 		//fenetre 3
-		label3 = new Label("Gestion Ligue");
-		Button4 = new Button("update");
+		label3 = new Label();
+		Button4 = new Button("update Ligue");
 		Button4.setOnAction(this);
 		nomligue = new TextField("");
 		listViewEmploye = new ListView<>();
 		listViewEmploye.setItems(observableEmploye);
 		listViewEmploye.getItems();
-		Back = new Button("update");
+		Back = new Button("Back");
 		Back.setOnAction(this);
+		SelectEmp = new Button("Select Employé");
+		SelectEmp.setOnAction(this);
 		VBox layout3 = new VBox(20);
-		layout3.getChildren().addAll(Back,label3,nomligue,listViewEmploye,Button4);
+		layout3.getChildren().addAll(Back,label3,nomligue,listViewEmploye,Button4,SelectEmp);
 		scene4 = new Scene(layout3,500,350);
 		
 		//fenetre 4
+		label4 = new Label("nom emp");
+		nomEmp = new TextField("");
+		PrenomEmp = new TextField("");
+		mailEmp = new TextField("");
+		PasswordEmp = new TextField("");
+		UpdateEmp = new Button("Update Emp");
+		UpdateEmp.setOnAction(this);
+		VBox layout4 = new VBox(20);
+		layout4.getChildren().addAll(label4,nomEmp,PrenomEmp,mailEmp,PasswordEmp,UpdateEmp);
+		scene5 = new Scene(layout4,500,350);
 		
-		
+		//La CSS
+		String css = this.getClass().getResource("style.css").toExternalForm(); 
+		scene1.getStylesheets().add(css);
 		LoginWindow.setScene(scene1);
 		LoginWindow.show();
 	}
@@ -121,11 +143,16 @@ public class window extends Application implements EventHandler<ActionEvent> {
 		// TODO Auto-generated method stub
 		if(event.getSource()==ButtonLogin) {
 			System.out.println(password.getText());
-			if(GestionPersonnel.getGestionPersonnel().getRoot().checkPassword(password.getText())) {
-			LoginWindow.setScene(scene2);
-			}
-			else {
-				System.out.println("wrong password");
+			try {
+				if(GestionPersonnel.getGestionPersonnel().getRoot().checkPassword(password.getText())) {
+				LoginWindow.setScene(scene2);
+				}
+				else {
+					System.out.println("wrong password");
+				}
+			} catch (SauvegardeImpossible e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 		if(event.getSource()==Button2) {
@@ -154,6 +181,8 @@ public class window extends Application implements EventHandler<ActionEvent> {
 				System.out.println(ligue.getEmployes());
 				listViewEmploye.setItems(observableEmploye);
 				listViewEmploye.getItems();
+				label3.setText(ligue.getNom());
+				label3.getText();				
 			} catch (SauvegardeImpossible e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -185,11 +214,52 @@ public class window extends Application implements EventHandler<ActionEvent> {
 		if(event.getSource()==Back) {
 			LoginWindow.setScene(scene2);
 		}
+		if(event.getSource()==SelectEmp) {
+			try {
+				employe = SelectEmploye(listViewEmploye.getSelectionModel().getSelectedItem());
+			} catch (SauvegardeImpossible e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			observableEmploye = FXCollections.observableArrayList(ligue.getEmployes());
+			System.out.println(observableEmploye);
+			System.out.println(employe);
+			System.out.println(employe.getLigue().getNom());
+			listViewEmploye.setItems(observableEmploye);
+			listViewEmploye.getItems();
+			label4.setText(employe.getNom());
+			label4.getText();
+			nomEmp.setText(employe.getNom());
+			nomEmp.getText();
+			PrenomEmp.setText(employe.getPrenom());
+			PrenomEmp.getText();
+			mailEmp.setText(employe.getMail());
+			mailEmp.getText();
+			PasswordEmp.setText(employe.getPassword());
+			PasswordEmp.getText();
+			LoginWindow.setScene(scene5);
+			
+		}
+		if(event.getSource()==UpdateEmp) {
+			employe.setNom(nomEmp.getText());
+			employe.setPrenom(PrenomEmp.getText());
+			employe.setMail(mailEmp.getText());
+			employe.setPassword(PasswordEmp.getText());
+			try {
+				employe.update();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		
 	
 	}
 	public Ligue SelectLigue(Ligue ligue) throws SauvegardeImpossible{
 		return ligue;
+	}
+	public Employe SelectEmploye(Employe Employe) throws SauvegardeImpossible{
+		return Employe;
 	}
 }
 	
