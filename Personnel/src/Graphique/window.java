@@ -46,6 +46,7 @@ public class window extends Application implements EventHandler<ActionEvent> {
 	Button SupprLigue;
 	Button SelectLigue;
 	ListView<Employe> listViewEmploye;
+	Button Back;
 	private ObservableList<Employe> observableEmploye;
 	private ObservableList<Ligue> observableLigues;
 	
@@ -96,10 +97,13 @@ public class window extends Application implements EventHandler<ActionEvent> {
 		listViewEmploye = new ListView<>();
 		listViewEmploye.setItems(observableEmploye);
 		listViewEmploye.getItems();
+		Back = new Button("update");
+		Back.setOnAction(this);
 		VBox layout3 = new VBox(20);
-		layout3.getChildren().addAll(label3,nomligue,listViewEmploye,Button4);
+		layout3.getChildren().addAll(Back,label3,nomligue,listViewEmploye,Button4);
 		scene4 = new Scene(layout3,500,350);
 		
+		//fenetre 4
 		
 		
 		LoginWindow.setScene(scene1);
@@ -117,16 +121,11 @@ public class window extends Application implements EventHandler<ActionEvent> {
 		// TODO Auto-generated method stub
 		if(event.getSource()==ButtonLogin) {
 			System.out.println(password.getText());
-			try {
-				if(GestionPersonnel.getGestionPersonnel().getRoot().checkPassword(password.getText())) {
-				LoginWindow.setScene(scene2);
-				}
-				else {
-					System.out.println("wrong password");
-				}
-			} catch (SauvegardeImpossible e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			if(GestionPersonnel.getGestionPersonnel().getRoot().checkPassword(password.getText())) {
+			LoginWindow.setScene(scene2);
+			}
+			else {
+				System.out.println("wrong password");
 			}
 		}
 		if(event.getSource()==Button2) {
@@ -180,7 +179,11 @@ public class window extends Application implements EventHandler<ActionEvent> {
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			
 			}
+		}
+		if(event.getSource()==Back) {
+			LoginWindow.setScene(scene2);
 		}
 		
 	
