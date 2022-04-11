@@ -216,7 +216,21 @@ public class Employe implements Serializable, Comparable<Employe>
 	public int getType() {
 		/* TODO if pour savoir le type */
 		
-		return 0;
+		int typ = 0;
+		
+		if (!this.estAdmin(ligue) && !this.estAdmin(ligue)) // employé simple
+		{
+			typ = 0;
+		}
+		else if (this.estAdmin(ligue)) // admin
+		{
+			typ = 1;
+		}
+		else if (this.estRoot()) // super-admin
+		{
+			typ = 2;
+		}
+		return typ;
 	}
 	
 	public void remove() throws SauvegardeImpossible
