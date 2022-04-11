@@ -22,13 +22,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import personnel.Employe;
 import personnel.GestionPersonnel;
 import personnel.Ligue;
 import personnel.SauvegardeImpossible;
 public class window extends Application implements EventHandler<ActionEvent> {
-	public void gg() throws SauvegardeImpossible {
-		GestionPersonnel gestionPersonnel = GestionPersonnel.getGestionPersonnel();
-	}
 	
 	Button ButtonLogin;
 	Button Button2;
@@ -45,6 +43,10 @@ public class window extends Application implements EventHandler<ActionEvent> {
 	Ligue ligue;
 	Button Button4;
 	TextField nomligue;
+	Button SupprLigue;
+	Button SelectLigue;
+	ListView<Employe> listViewEmploye;
+	private ObservableList<Employe> observableEmploye;
 	private ObservableList<Ligue> observableLigues;
 	
 	@Override
@@ -67,6 +69,7 @@ public class window extends Application implements EventHandler<ActionEvent> {
 		
 		//fenetre 2
 		label2 = new Label("Menu Ligue");
+		Label labelcreate = new Label("Cree ligue");
 		listViewligue = new ListView<>();
 		observableLigues = FXCollections.observableArrayList(GestionPersonnel.getGestionPersonnel().getLigues());
 		listViewligue.setItems(observableLigues);
@@ -76,8 +79,12 @@ public class window extends Application implements EventHandler<ActionEvent> {
 		addligue = new TextField();
 		button3 = new Button("valider");
 		button3.setOnAction(this);
+		SupprLigue = new Button("Supprimer ligue");
+		SupprLigue.setOnAction(this);
+		SelectLigue = new Button("Selectionner");
+		SelectLigue.setOnAction(this);
 		VBox layout2 = new VBox(20);
-		layout2.getChildren().addAll(Button2,label2, listViewligue,addligue,button3);
+		layout2.getChildren().addAll(Button2,label2, listViewligue,SupprLigue,SelectLigue,labelcreate,addligue,button3);
 		scene2 = new Scene(layout2,400,300);
 		
 		
@@ -86,8 +93,11 @@ public class window extends Application implements EventHandler<ActionEvent> {
 		Button4 = new Button("update");
 		Button4.setOnAction(this);
 		nomligue = new TextField("");
+		listViewEmploye = new ListView<>();
+		listViewEmploye.setItems(observableEmploye);
+		listViewEmploye.getItems();
 		VBox layout3 = new VBox(20);
-		layout3.getChildren().addAll(label3,nomligue,Button4);
+		layout3.getChildren().addAll(label3,nomligue,listViewEmploye,Button4);
 		scene4 = new Scene(layout3,500,350);
 		
 		
@@ -130,21 +140,39 @@ public class window extends Application implements EventHandler<ActionEvent> {
 				observableLigues = FXCollections.observableArrayList(GestionPersonnel.getGestionPersonnel().getLigues());
 				listViewligue.setItems(observableLigues);
 				listViewligue.getItems();
-				ligue = SelectLigue(listViewligue.getSelectionModel().getSelectedItem());
-				LoginWindow.setScene(scene4);
 			} catch (SauvegardeImpossible e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
 		}
-		if(event.getSource()==listViewligue) {
-			int x = listViewligue.getSelectionModel().getSelectedIndex();
-			System.out.println(x);
-			//LoginWindow.setScene(scene3);
-			
+		if(event.getSource()==SelectLigue) {
+			try {
+				ligue = SelectLigue(listViewligue.getSelectionModel().getSelectedItem());
+				observableEmploye = FXCollections.observableArrayList(ligue.getEmployes());
+				System.out.println(observableEmploye);
+				System.out.println(ligue);
+				System.out.println(ligue.getEmployes());
+				listViewEmploye.setItems(observableEmploye);
+				listViewEmploye.getItems();
+			} catch (SauvegardeImpossible e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			LoginWindow.setScene(scene4);
 		}
-		
+		if(event.getSource()==SupprLigue) {
+			try {
+				ligue = SelectLigue(listViewligue.getSelectionModel().getSelectedItem());
+				ligue.remove();
+				observableLigues = FXCollections.observableArrayList(GestionPersonnel.getGestionPersonnel().getLigues());
+				listViewligue.setItems(observableLigues);
+				listViewligue.getItems();
+			} catch (SauvegardeImpossible e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		if(event.getSource()==Button4) {
 			ligue.setNom(nomligue.getText());
 			try {
