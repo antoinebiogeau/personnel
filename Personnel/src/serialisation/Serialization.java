@@ -54,7 +54,7 @@ public class Serialization implements personnel.Passerelle
 	}
 
 	@Override
-	public int insert(Employe employÃ©) throws SauvegardeImpossible {
+	public int insert(Employe employé) throws SauvegardeImpossible {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -65,7 +65,7 @@ public class Serialization implements personnel.Passerelle
 	}
 
 	@Override
-	public void update(Employe employÃ©) throws SauvegardeImpossible {
+	public void update(Employe employé) throws SauvegardeImpossible {
 		// TODO Auto-generated method stub
 	}
 
