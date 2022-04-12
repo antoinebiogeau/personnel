@@ -2,9 +2,12 @@ package Graphique;
 
 import static commandLineMenus.rendering.examples.util.InOut.getString;
 
+import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import javax.management.DynamicMBean;
 
 import commandLineMenus.List;
 import javafx.application.Application;
@@ -13,6 +16,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.HPos;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -21,6 +27,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import personnel.Employe;
 import personnel.GestionPersonnel;
@@ -71,9 +78,9 @@ public class window extends Application implements EventHandler<ActionEvent> {
 		ButtonLogin.setOnAction(this);
 		password = new TextField("");
 		
-		VBox layout1 = new VBox(20);
+		VBox layout1 = new VBox();
 		layout1.getChildren().addAll(label,password,ButtonLogin);
-		scene1 = new Scene(layout1,300,250);
+		scene1 = new Scene(layout1,1000,800);
 		
 		
 		//fenetre 2
@@ -83,7 +90,7 @@ public class window extends Application implements EventHandler<ActionEvent> {
 		observableLigues = FXCollections.observableArrayList(GestionPersonnel.getGestionPersonnel().getLigues());
 		listViewligue.setItems(observableLigues);
 		listViewligue.getItems();
-		Button2 = new Button("Back");
+		Button2 = new Button("‚Üê");
 		Button2.setOnAction(this);
 		addligue = new TextField();
 		button3 = new Button("valider");
@@ -92,9 +99,9 @@ public class window extends Application implements EventHandler<ActionEvent> {
 		SupprLigue.setOnAction(this);
 		SelectLigue = new Button("Selectionner");
 		SelectLigue.setOnAction(this);
-		VBox layout2 = new VBox(20);
+		VBox layout2 = new VBox();
 		layout2.getChildren().addAll(Button2,label2, listViewligue,SupprLigue,SelectLigue,labelcreate,addligue,button3);
-		scene2 = new Scene(layout2,400,300);
+		scene2 = new Scene(layout2,1000,800);
 		
 		
 		//fenetre 3
@@ -107,11 +114,11 @@ public class window extends Application implements EventHandler<ActionEvent> {
 		listViewEmploye.getItems();
 		Back = new Button("Back");
 		Back.setOnAction(this);
-		SelectEmp = new Button("Select EmployÈ");
+		SelectEmp = new Button("Select EmployÔøΩ");
 		SelectEmp.setOnAction(this);
-		VBox layout3 = new VBox(20);
+		VBox layout3 = new VBox();
 		layout3.getChildren().addAll(Back,label3,nomligue,listViewEmploye,Button4,SelectEmp);
-		scene4 = new Scene(layout3,500,350);
+		scene4 = new Scene(layout3,1000,800);
 		
 		//fenetre 4
 		label4 = new Label("nom emp");
@@ -121,27 +128,58 @@ public class window extends Application implements EventHandler<ActionEvent> {
 		PasswordEmp = new TextField("");
 		UpdateEmp = new Button("Update Emp");
 		UpdateEmp.setOnAction(this);
-		VBox layout4 = new VBox(20);
+		VBox layout4 = new VBox();
 		layout4.getChildren().addAll(label4,nomEmp,PrenomEmp,mailEmp,PasswordEmp,UpdateEmp);
-		scene5 = new Scene(layout4,500,350);
+		scene5 = new Scene(layout4,1000,800);
 		
-		//La CSS
-		String css = this.getClass().getResource("style.css").toExternalForm(); 
-		scene1.getStylesheets().add(css);
-		LoginWindow.setScene(scene1);
+		
+		
+		//La CSS scene 1
+		ButtonLogin.setStyle("-fx-padding:20 40 20 40;-fx-border-radius: 20; -fx-border-color: #e2e2e2; -fx-border-width: 1; -fx-background-radius: 0; -fx-background-color: #2249A7; -fx-border-color: #2249A7; -fx-font-size: 20pt; -fx-text-fill: #d8d8d8; -fx-background-insets: 0 0 0 0, 0, 1, 2;");
+		password.setStyle("-fx-margin: 50 50 50 50");
+		layout1.setStyle("-fx-padding: 100 200 100 200; -fx-background-color: #222;");
+		label.setStyle("-fx-text-fill: white;-fx-font-size: 40pt; -fx-padding: 50 50 50 50");
+		label.setTranslateY(-200);
+		password.setTranslateY(-100);
+		layout1.setAlignment(Pos.CENTER);
+		//CSS scene 2
+		label2.setStyle("-fx-text-fill: white;-fx-font-size: 40pt; -fx-padding: 50 50 50 50");
+		layout2.setStyle("-fx-padding: 50 100 50 100; -fx-background-color: #222;");
+		label2.setTranslateX(200);
+		label2.setTranslateY(-120);
+		Button2.setStyle("-fx-background-color: red;-fx-font-size: 20pt; -fx-text-fill: #d8d8d8;");
+		SupprLigue.setStyle("-fx-background-color: #2249A7;-fx-font-size: 15pt; -fx-text-fill: #d8d8d8;");
+		SelectLigue.setStyle("-fx-background-color: #2249A7;-fx-font-size: 15pt; -fx-text-fill: #d8d8d8;");
+		SupprLigue.setTranslateX(400);
+		SupprLigue.setTranslateY(16);
+		SelectLigue.setTranslateX(200);
+		SelectLigue.setTranslateY(-28);
+		button3.setStyle("-fx-background-color: #2249A7;-fx-font-size: 15pt; -fx-text-fill: #d8d8d8;");
+		button3.setTranslateX(340);
+		button3.setTranslateY(16);
+		labelcreate.setStyle("-fx-text-fill: white;-fx-font-size: 20pt; -fx-padding: 10 10 10 10");
+		labelcreate.setTranslateX(318);
+		//CSS scene 3
+		
+		//CSS scene 4
+		
+		LoginWindow.setScene(scene2);
 		LoginWindow.show();
+		
 	}
 	
 	
 
 	public static void main(String[] args) {
 	    launch(args);
+	    
 	 }
 
 	@Override
 	public void handle(ActionEvent event) {
 		// TODO Auto-generated method stub
 		if(event.getSource()==ButtonLogin) {
+			
 			System.out.println(password.getText());
 			try {
 				if(GestionPersonnel.getGestionPersonnel().getRoot().checkPassword(password.getText())) {
@@ -251,6 +289,7 @@ public class window extends Application implements EventHandler<ActionEvent> {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			LoginWindow.setScene(scene4);
 		}
 		
 	
