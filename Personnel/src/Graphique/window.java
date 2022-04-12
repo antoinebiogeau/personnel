@@ -105,16 +105,16 @@ public class window extends Application implements EventHandler<ActionEvent> {
 		
 		
 		//fenetre 3
-		label3 = new Label();
+		label3 = new Label("nom ligue");
 		Button4 = new Button("update Ligue");
 		Button4.setOnAction(this);
 		nomligue = new TextField("");
 		listViewEmploye = new ListView<>();
 		listViewEmploye.setItems(observableEmploye);
 		listViewEmploye.getItems();
-		Back = new Button("Back");
+		Back = new Button("←");
 		Back.setOnAction(this);
-		SelectEmp = new Button("Select Employ�");
+		SelectEmp = new Button("Select Employé");
 		SelectEmp.setOnAction(this);
 		VBox layout3 = new VBox();
 		layout3.getChildren().addAll(Back,label3,nomligue,listViewEmploye,Button4,SelectEmp);
@@ -160,10 +160,20 @@ public class window extends Application implements EventHandler<ActionEvent> {
 		labelcreate.setStyle("-fx-text-fill: white;-fx-font-size: 20pt; -fx-padding: 10 10 10 10");
 		labelcreate.setTranslateX(318);
 		//CSS scene 3
-		
+		label3.setStyle("-fx-text-fill: white;-fx-font-size: 40pt; -fx-padding: 50 50 50 50");
+		label3.setTranslateX(200);
+		label3.setTranslateY(-120);
+		layout3.setStyle("-fx-padding: 50 100 50 100; -fx-background-color: #222;");
+		Button4.setStyle("-fx-background-color: #2249A7;-fx-font-size: 15pt; -fx-text-fill: #d8d8d8;");
+		Button4.setTranslateX(430);
+		Button4.setTranslateY(16);
+		Back.setStyle("-fx-background-color: red;-fx-font-size: 20pt; -fx-text-fill: #d8d8d8;");
+		SelectEmp.setStyle("-fx-background-color: #2249A7;-fx-font-size: 15pt; -fx-text-fill: #d8d8d8;");
+		SelectEmp.setTranslateX(230);
+		SelectEmp.setTranslateY(-28);
 		//CSS scene 4
 		
-		LoginWindow.setScene(scene2);
+		LoginWindow.setScene(scene4);
 		LoginWindow.show();
 		
 	}
