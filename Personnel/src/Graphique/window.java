@@ -172,8 +172,16 @@ public class window extends Application implements EventHandler<ActionEvent> {
 		SelectEmp.setTranslateX(230);
 		SelectEmp.setTranslateY(-28);
 		//CSS scene 4
+		label4.setStyle("-fx-text-fill: white;-fx-font-size: 40pt; -fx-padding: 50 50 50 50");
+		layout4.setStyle("-fx-padding: 50 100 50 100; -fx-background-color: #222;");
+		label4.setTranslateX(200);
+		label4.setTranslateY(-50);
+		UpdateEmp.setStyle("-fx-background-color: #2249A7;-fx-font-size: 15pt; -fx-text-fill: #d8d8d8;");
+		UpdateEmp.setTranslateX(300);
+		UpdateEmp.setTranslateY(100);
 		
-		LoginWindow.setScene(scene4);
+		
+		LoginWindow.setScene(scene1);
 		LoginWindow.show();
 		
 	}
