@@ -218,18 +218,19 @@ public class Employe implements Serializable, Comparable<Employe>
 		
 		int typ = 0;
 		
-		if (!this.estAdmin(ligue) && !this.estAdmin(ligue)) // employé simple
+		if (this.estRoot()) 
 		{
-			typ = 0;
+			typ = 2;
 		}
 		else if (this.estAdmin(ligue)) // admin
 		{
 			typ = 1;
 		}
-		else if (this.estRoot()) // super-admin
+		else // employÃ© simple
 		{
-			typ = 2;
+			typ = 0;
 		}
+	
 		return typ;
 	}
 	

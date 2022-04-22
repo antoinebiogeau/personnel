@@ -165,7 +165,7 @@ public class JDBC implements Passerelle
 			PreparedStatement instruction;
 			instruction = connection.prepareStatement("UPDATE employé SET nom_employe = '"+ employé.getNom()+
 					"', prénom = '"+employé.getPrenom()+"',  mail = '"+employé.getMail()+"',  password ='"+
-					employé.getPassword()+"', type = "+employé.getType() +" WHERE idemployé = "+ employé.getid() +" ", Statement.RETURN_GENERATED_KEYS);
+					employé.getPassword()+"', type = "+employé.getType() +" WHERE idemployer = "+ employé.getid() +" ", Statement.RETURN_GENERATED_KEYS);
 			instruction.executeUpdate();
 		} catch (SQLException e) {
 			
