@@ -24,6 +24,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -33,15 +34,15 @@ import personnel.Employe;
 import personnel.GestionPersonnel;
 import personnel.Ligue;
 import personnel.SauvegardeImpossible;
-public class window extends Application implements EventHandler<ActionEvent> {
+public class window2 extends Application implements EventHandler<ActionEvent> {
 	
 	Button ButtonLogin;
 	Button Button2;
 	Stage LoginWindow;
-	TextField password;
+	PasswordField password;
 	TextField addligue;
 	Scene scene1, scene2;
-	Scene scene4, scene5;
+	Scene scene4, scene5, scene6;
 	Button button3;
 	Label label2;
 	Label labellistligue;
@@ -59,9 +60,14 @@ public class window extends Application implements EventHandler<ActionEvent> {
 	TextField nomEmp;
 	TextField PrenomEmp;
 	TextField mailEmp;
-	TextField PasswordEmp;
+	PasswordField PasswordEmp;
 	Button UpdateEmp;
 	Label label4;
+	Button addEmp;
+	Button GererRoot;
+	Button GererLigue;
+	Button Backemp;
+
 	private ObservableList<Employe> observableEmploye;
 	private ObservableList<Ligue> observableLigues;
 	
@@ -70,13 +76,13 @@ public class window extends Application implements EventHandler<ActionEvent> {
 		
 
 		LoginWindow = primaryStage;
-		LoginWindow.setTitle("Login");
+		LoginWindow.setTitle("M2L");
 		
 		//fenetre 1
 		Label label = new Label("Login");
 		ButtonLogin = new Button("Login");
 		ButtonLogin.setOnAction(this);
-		password = new TextField("");
+		password = new PasswordField();
 		
 		VBox layout1 = new VBox();
 		layout1.getChildren().addAll(label,password,ButtonLogin);
@@ -116,8 +122,9 @@ public class window extends Application implements EventHandler<ActionEvent> {
 		Back.setOnAction(this);
 		SelectEmp = new Button("Select Employé");
 		SelectEmp.setOnAction(this);
+		addEmp = new Button("ajouter employé");
 		VBox layout3 = new VBox();
-		layout3.getChildren().addAll(Back,label3,nomligue,listViewEmploye,Button4,SelectEmp);
+		layout3.getChildren().addAll(Back,label3,listViewEmploye,nomligue,Button4,SelectEmp, addEmp);
 		scene4 = new Scene(layout3,1000,800);
 		
 		//fenetre 4
@@ -125,13 +132,27 @@ public class window extends Application implements EventHandler<ActionEvent> {
 		nomEmp = new TextField("");
 		PrenomEmp = new TextField("");
 		mailEmp = new TextField("");
-		PasswordEmp = new TextField("");
+		PasswordEmp = new PasswordField();
 		UpdateEmp = new Button("Update Emp");
 		UpdateEmp.setOnAction(this);
+		Backemp = new Button("←");
 		VBox layout4 = new VBox();
 		layout4.getChildren().addAll(label4,nomEmp,PrenomEmp,mailEmp,PasswordEmp,UpdateEmp);
 		scene5 = new Scene(layout4,1000,800);
 		
+		//fenetre 5 
+		
+		
+		//menu
+		GererRoot= new Button("Gerer le Root");
+		GererLigue= new Button("Gerer les ligues");
+		Label labelMain = new Label("Menu principale");
+		VBox layout5 = new VBox();
+		layout5.getChildren().addAll(labelMain, GererRoot, GererLigue);
+		scene6 = new Scene(layout5,1000,800);
+		//CSS menu root
+		GererRoot.setStyle("-fx-padding:20 40 20 40;-fx-border-radius: 20; -fx-border-color: #e2e2e2; -fx-border-width: 1; -fx-background-radius: 0; -fx-background-color: #2249A7; -fx-border-color: #2249A7; -fx-font-size: 20pt; -fx-text-fill: #d8d8d8; -fx-background-insets: 0 0 0 0, 0, 1, 2;");
+		GererLigue.setStyle("-fx-padding:20 40 20 40;-fx-border-radius: 20; -fx-border-color: #e2e2e2; -fx-border-width: 1; -fx-background-radius: 0; -fx-background-color: #2249A7; -fx-border-color: #2249A7; -fx-font-size: 20pt; -fx-text-fill: #d8d8d8; -fx-background-insets: 0 0 0 0, 0, 1, 2;");
 		
 		
 		//La CSS scene 1
@@ -211,11 +232,11 @@ public class window extends Application implements EventHandler<ActionEvent> {
 				e.printStackTrace();
 			}
 		}
-		if(event.getSource()==Button2) {
+		else if(event.getSource()==Button2) {
 			System.out.println("prout2");
 			LoginWindow.setScene(scene1);
 		}
-		if(event.getSource()==button3) {
+		else if(event.getSource()==button3) {
 			System.out.println("pouf");
 			try {
 				GestionPersonnel.getGestionPersonnel().addLigue(addligue.getText());
@@ -228,7 +249,7 @@ public class window extends Application implements EventHandler<ActionEvent> {
 			}
 			
 		}
-		if(event.getSource()==SelectLigue) {
+		else if(event.getSource()==SelectLigue) {
 			try {
 				ligue = SelectLigue(listViewligue.getSelectionModel().getSelectedItem());
 				observableEmploye = FXCollections.observableArrayList(ligue.getEmployes());
@@ -245,7 +266,7 @@ public class window extends Application implements EventHandler<ActionEvent> {
 			}
 			LoginWindow.setScene(scene4);
 		}
-		if(event.getSource()==SupprLigue) {
+		else if(event.getSource()==SupprLigue) {
 			try {
 				ligue = SelectLigue(listViewligue.getSelectionModel().getSelectedItem());
 				ligue.remove();
@@ -257,7 +278,7 @@ public class window extends Application implements EventHandler<ActionEvent> {
 				e.printStackTrace();
 			}
 		}
-		if(event.getSource()==Button4) {
+		else if(event.getSource()==Button4) {
 			ligue.setNom(nomligue.getText());
 			try {
 				ligue.update();
@@ -267,10 +288,10 @@ public class window extends Application implements EventHandler<ActionEvent> {
 			
 			}
 		}
-		if(event.getSource()==Back) {
+		else if(event.getSource()==Back) {
 			LoginWindow.setScene(scene2);
 		}
-		if(event.getSource()==SelectEmp) {
+		else if(event.getSource()==SelectEmp) {
 			try {
 				employe = SelectEmploye(listViewEmploye.getSelectionModel().getSelectedItem());
 			} catch (SauvegardeImpossible e) {
@@ -296,7 +317,7 @@ public class window extends Application implements EventHandler<ActionEvent> {
 			LoginWindow.setScene(scene5);
 			
 		}
-		if(event.getSource()==UpdateEmp) {
+		else if(event.getSource()==UpdateEmp) {
 			employe.setNom(nomEmp.getText());
 			employe.setPrenom(PrenomEmp.getText());
 			employe.setMail(mailEmp.getText());
@@ -309,6 +330,9 @@ public class window extends Application implements EventHandler<ActionEvent> {
 			}
 			LoginWindow.setScene(scene4);
 		}
+		else if(event.getSource()==Backemp) {
+			LoginWindow.setScene(scene4);
+		}
 		
 	
 	}
@@ -318,6 +342,8 @@ public class window extends Application implements EventHandler<ActionEvent> {
 	public Employe SelectEmploye(Employe Employe) throws SauvegardeImpossible{
 		return Employe;
 	}
+
+
 }
 	
 
