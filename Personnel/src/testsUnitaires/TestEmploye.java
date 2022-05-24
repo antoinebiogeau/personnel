@@ -11,7 +11,16 @@ import personnel.*;
 
 class TestEmploye {
 	
-	GestionPersonnel gestionPersonnel = GestionPersonnel.getGestionPersonnel();
+	GestionPersonnel gestionPersonnel; 
+	public TestEmploye() {
+		try {
+			gestionPersonnel = GestionPersonnel.getGestionPersonnel();
+		} catch (SauvegardeImpossible e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// TODO Auto-generated constructor stub
+	}
 	
 	
 

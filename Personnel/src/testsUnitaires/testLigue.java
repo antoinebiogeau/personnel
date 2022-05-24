@@ -12,7 +12,16 @@ import personnel.*;
 
 class testLigue 
 {
-	GestionPersonnel gestionPersonnel = GestionPersonnel.getGestionPersonnel();
+	GestionPersonnel gestionPersonnel;
+	
+	public testLigue() {
+		try {
+			gestionPersonnel = GestionPersonnel.getGestionPersonnel();
+		} catch (SauvegardeImpossible e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	@Test
 	void createLigue() throws SauvegardeImpossible
