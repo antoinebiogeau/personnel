@@ -19,6 +19,7 @@ import personnel.Ligue;
 import personnel.SauvegardeImpossible;
 
 public class graphclass extends Application implements EventHandler<ActionEvent>{
+	Button button;
 	
 	public Stage window(Stage primaryStage){
 		Stage LoginWindow = primaryStage;
@@ -32,10 +33,10 @@ public class graphclass extends Application implements EventHandler<ActionEvent>
 		return ButtonLogin;
 		
 	}
-	public Button button(String nom) {
-		Button Button = new Button(nom);
-		Button.setOnAction(this);
-		return Button;
+	public Button button() {
+		button = new Button();
+		button.setOnAction(this);
+		return button;
 	}
 	public Button Retour() {
 		Button Back = new Button("←");
@@ -75,7 +76,9 @@ public class graphclass extends Application implements EventHandler<ActionEvent>
 	}
 	public VBox layout2() throws SauvegardeImpossible {
 		VBox layout2 = new VBox();
-		layout2.getChildren().addAll(Retour(),titre("Menu Ligue"), ListLigue(),button("suivant"));
+		Button x =  button();
+		layout2.getChildren().addAll(Retour(),titre("Menu Ligue"), ListLigue(),x);
+		x.setText("suivant");
 		layout2.setStyle("-fx-padding: 100 200 100 200; -fx-background-color: #222;");
 		layout2.setAlignment(Pos.CENTER);
 		return layout2;
@@ -90,10 +93,10 @@ public class graphclass extends Application implements EventHandler<ActionEvent>
 	    
 	 }
 	public void handle(ActionEvent event, Stage stage) throws SauvegardeImpossible {
-		if(event.getSource()==this.button("suivant")) {
+		if(event.getSource()==button) {
 			System.out.println("prout");
 			window(stage).setScene(layout1());
-		}	
+		}
 	}
 
 	@Override
@@ -104,6 +107,7 @@ public class graphclass extends Application implements EventHandler<ActionEvent>
 	}
 	public void handle(ActionEvent e) {
 		
-		// TODO Auto-generated method stub
+		
+		
 	}
 }

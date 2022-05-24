@@ -67,6 +67,7 @@ public class window2 extends Application implements EventHandler<ActionEvent> {
 	Button GererRoot;
 	Button GererLigue;
 	Button Backemp;
+	Button Quitter;
 
 	private ObservableList<Employe> observableEmploye;
 	private ObservableList<Ligue> observableLigues;
@@ -88,6 +89,17 @@ public class window2 extends Application implements EventHandler<ActionEvent> {
 		layout1.getChildren().addAll(label,password,ButtonLogin);
 		scene1 = new Scene(layout1,1000,800);
 		
+		//menu
+		GererRoot= new Button("Gerer le Root");
+		GererRoot.setOnAction(this);
+		GererLigue= new Button("Gerer les ligues");
+		GererLigue.setOnAction(this);
+		Quitter = new Button("Quitter");
+		Quitter.setOnAction(this);
+		Label labelMain = new Label("Maison des ligues");
+		VBox layout5 = new VBox();
+		layout5.getChildren().addAll(labelMain, GererRoot, GererLigue,Quitter);
+		scene6 = new Scene(layout5,1000,800);
 		
 		//fenetre 2
 		label2 = new Label("Menu Ligue");
@@ -128,33 +140,36 @@ public class window2 extends Application implements EventHandler<ActionEvent> {
 		scene4 = new Scene(layout3,1000,800);
 		
 		//fenetre 4
+		
 		label4 = new Label("nom emp");
+		Label nom = new Label("nom emp");
 		nomEmp = new TextField("");
+		Label prenom = new Label("nom emp");
 		PrenomEmp = new TextField("");
+		Label mail = new Label("nom emp");
 		mailEmp = new TextField("");
+		Label password = new Label("nom emp");
 		PasswordEmp = new PasswordField();
 		UpdateEmp = new Button("Update Emp");
 		UpdateEmp.setOnAction(this);
 		Backemp = new Button("←");
 		VBox layout4 = new VBox();
-		layout4.getChildren().addAll(label4,nomEmp,PrenomEmp,mailEmp,PasswordEmp,UpdateEmp);
+		layout4.getChildren().addAll(label4,nom,nomEmp,prenom, PrenomEmp,mail,mailEmp,PasswordEmp,UpdateEmp);
 		scene5 = new Scene(layout4,1000,800);
 		
 		//fenetre 5 
 		
 		
-		//menu
-		GererRoot= new Button("Gerer le Root");
-		GererLigue= new Button("Gerer les ligues");
-		Label labelMain = new Label("Menu principale");
-		VBox layout5 = new VBox();
-		layout5.getChildren().addAll(labelMain, GererRoot, GererLigue);
-		scene6 = new Scene(layout5,1000,800);
 		//CSS menu root
 		GererRoot.setStyle("-fx-padding:20 40 20 40;-fx-border-radius: 20; -fx-border-color: #e2e2e2; -fx-border-width: 1; -fx-background-radius: 0; -fx-background-color: #2249A7; -fx-border-color: #2249A7; -fx-font-size: 20pt; -fx-text-fill: #d8d8d8; -fx-background-insets: 0 0 0 0, 0, 1, 2;");
+		GererRoot.setTranslateY(-40);
 		GererLigue.setStyle("-fx-padding:20 40 20 40;-fx-border-radius: 20; -fx-border-color: #e2e2e2; -fx-border-width: 1; -fx-background-radius: 0; -fx-background-color: #2249A7; -fx-border-color: #2249A7; -fx-font-size: 20pt; -fx-text-fill: #d8d8d8; -fx-background-insets: 0 0 0 0, 0, 1, 2;");
-		
-		
+		labelMain.setStyle("-fx-text-fill: white;-fx-font-size: 40pt; -fx-padding: 50 50 50 50");
+		labelMain.setTranslateY(-200);
+		layout5.setStyle("-fx-padding: 100 200 100 200; -fx-background-color: #222;");
+		layout5.setAlignment(Pos.CENTER);
+		Quitter.setStyle("-fx-padding:20 40 20 40;-fx-border-radius: 20; -fx-border-color: #e2e2e2; -fx-border-width: 1; -fx-background-radius: 0; -fx-background-color: #2249A7; -fx-border-color: #2249A7; -fx-font-size: 20pt; -fx-text-fill: #d8d8d8; -fx-background-insets: 0 0 0 0, 0, 1, 2;");
+		Quitter.setTranslateY(40);
 		//La CSS scene 1
 		ButtonLogin.setStyle("-fx-padding:20 40 20 40;-fx-border-radius: 20; -fx-border-color: #e2e2e2; -fx-border-width: 1; -fx-background-radius: 0; -fx-background-color: #2249A7; -fx-border-color: #2249A7; -fx-font-size: 20pt; -fx-text-fill: #d8d8d8; -fx-background-insets: 0 0 0 0, 0, 1, 2;");
 		password.setStyle("-fx-margin: 50 50 50 50");
@@ -222,7 +237,7 @@ public class window2 extends Application implements EventHandler<ActionEvent> {
 			System.out.println(password.getText());
 			try {
 				if(GestionPersonnel.getGestionPersonnel().getRoot().checkPassword(password.getText())) {
-				LoginWindow.setScene(scene2);
+				LoginWindow.setScene(scene6);
 				}
 				else {
 					System.out.println("wrong password");
@@ -232,9 +247,25 @@ public class window2 extends Application implements EventHandler<ActionEvent> {
 				e.printStackTrace();
 			}
 		}
+		else if (event.getSource() == GererRoot) {
+			try {
+				employe = GestionPersonnel.getGestionPersonnel().getRoot();
+			} catch (SauvegardeImpossible e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			LoginWindow.setScene(scene5);
+		}
+		else if (event.getSource() == GererLigue) {
+			LoginWindow.setScene(scene2);
+			
+		}
+		else if (event.getSource() == Quitter) {
+			LoginWindow.setScene(scene6);
+		}
 		else if(event.getSource()==Button2) {
 			System.out.println("prout2");
-			LoginWindow.setScene(scene1);
+			LoginWindow.setScene(scene6);
 		}
 		else if(event.getSource()==button3) {
 			System.out.println("pouf");
