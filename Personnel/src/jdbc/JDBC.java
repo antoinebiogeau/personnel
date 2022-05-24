@@ -38,7 +38,7 @@ public class JDBC implements Passerelle
         GestionPersonnel gestionPersonnel = new GestionPersonnel();
 
         try {
-            String requete = "SELECT * FROM ligue";
+            String requete = "SELECT * FROM LIGUE";
             Statement instruction = connection.createStatement();
             ResultSet ligues = instruction.executeQuery(requete);
 
