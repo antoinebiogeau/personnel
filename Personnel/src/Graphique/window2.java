@@ -4,6 +4,7 @@ import static commandLineMenus.rendering.examples.util.InOut.getString;
 
 import java.io.File;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -22,6 +23,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
@@ -30,6 +32,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import personnel.DateImpossible;
 import personnel.Employe;
 import personnel.GestionPersonnel;
 import personnel.Ligue;
@@ -42,7 +45,7 @@ public class window2 extends Application implements EventHandler<ActionEvent> {
 	PasswordField password;
 	TextField addligue;
 	Scene scene1, scene2;
-	Scene scene4, scene5, scene6;
+	Scene scene4, scene5, scene6, scene7;
 	Button button3;
 	Label label2;
 	Label labellistligue;
@@ -68,6 +71,9 @@ public class window2 extends Application implements EventHandler<ActionEvent> {
 	Button GererLigue;
 	Button Backemp;
 	Button Quitter;
+	Button AjouterEmp;
+	DatePicker DateArriv = new DatePicker();
+	DatePicker DateDep = new DatePicker();
 
 	private ObservableList<Employe> observableEmploye;
 	private ObservableList<Ligue> observableLigues;
@@ -79,7 +85,7 @@ public class window2 extends Application implements EventHandler<ActionEvent> {
 		LoginWindow = primaryStage;
 		LoginWindow.setTitle("M2L");
 		
-		//fenetre 1
+		//fenetre 1 Login
 		Label label = new Label("Login");
 		ButtonLogin = new Button("Login");
 		ButtonLogin.setOnAction(this);
@@ -89,7 +95,7 @@ public class window2 extends Application implements EventHandler<ActionEvent> {
 		layout1.getChildren().addAll(label,password,ButtonLogin);
 		scene1 = new Scene(layout1,1000,800);
 		
-		//menu
+		//menu Choix entre Gerer Ligue et Root
 		GererRoot= new Button("Gerer le Root");
 		GererRoot.setOnAction(this);
 		GererLigue= new Button("Gerer les ligues");
@@ -101,7 +107,7 @@ public class window2 extends Application implements EventHandler<ActionEvent> {
 		layout5.getChildren().addAll(labelMain, GererRoot, GererLigue,Quitter);
 		scene6 = new Scene(layout5,1000,800);
 		
-		//fenetre 2
+		//fenetre 2 Menu Ligue
 		label2 = new Label("Menu Ligue");
 		Label labelcreate = new Label("Cree ligue");
 		listViewligue = new ListView<>();
@@ -122,7 +128,7 @@ public class window2 extends Application implements EventHandler<ActionEvent> {
 		scene2 = new Scene(layout2,1000,800);
 		
 		
-		//fenetre 3
+		//fenetre 3 Gestion de la ligue
 		label3 = new Label("nom ligue");
 		Button4 = new Button("update Ligue");
 		Button4.setOnAction(this);
@@ -135,11 +141,12 @@ public class window2 extends Application implements EventHandler<ActionEvent> {
 		SelectEmp = new Button("Select Employé");
 		SelectEmp.setOnAction(this);
 		addEmp = new Button("ajouter employé");
+		addEmp.setOnAction(this);
 		VBox layout3 = new VBox();
 		layout3.getChildren().addAll(Back,label3,listViewEmploye,nomligue,Button4,SelectEmp, addEmp);
 		scene4 = new Scene(layout3,1000,800);
 		
-		//fenetre 4
+		//fenetre 4 Gestion employé
 		
 		label4 = new Label("nom emp");
 		Label nom = new Label("nom emp");
@@ -150,14 +157,45 @@ public class window2 extends Application implements EventHandler<ActionEvent> {
 		mailEmp = new TextField("");
 		Label password = new Label("nom emp");
 		PasswordEmp = new PasswordField();
+		DateArriv.setValue(LocalDate.of(2016, 7, 25));
+        DateArriv.setShowWeekNumbers(true);
+        DateDep.setValue(LocalDate.of(2016, 7, 25));
+        DateDep.setShowWeekNumbers(true);
 		UpdateEmp = new Button("Update Emp");
 		UpdateEmp.setOnAction(this);
 		Backemp = new Button("←");
 		VBox layout4 = new VBox();
-		layout4.getChildren().addAll(label4,nom,nomEmp,prenom, PrenomEmp,mail,mailEmp,PasswordEmp,UpdateEmp);
+		layout4.getChildren().addAll(label4,nom,nomEmp,prenom, PrenomEmp,mail,mailEmp,password,PasswordEmp,UpdateEmp,Backemp);
 		scene5 = new Scene(layout4,1000,800);
 		
-		//fenetre 5 
+		//scene 5 
+		label4.setStyle("-fx-text-fill: white;-fx-font-size: 40pt; -fx-padding: 50 50 50 50");
+		nom.setStyle("-fx-text-fill: white;-fx-font-size: 10pt; -fx-padding: 50 50 50 50");
+		prenom.setStyle("-fx-text-fill: white;-fx-font-size: 10pt; -fx-padding: 50 50 50 50");
+		mail.setStyle("-fx-text-fill: white;-fx-font-size: 10pt; -fx-padding: 50 50 50 50");
+		password.setStyle("-fx-text-fill: white;-fx-font-size: 10pt; -fx-padding: 50 50 50 50");
+		
+		//fenetre 6 addemp
+		label4 = new Label("Ajouter Employé");
+		Label nomE = new Label("nom");
+		nomEmp = new TextField("");
+		Label prenomE = new Label("prenom");
+		PrenomEmp = new TextField("");
+		Label mailE = new Label("mail");
+		mailEmp = new TextField("");
+		Label passwordE = new Label("mot de passe");
+		PasswordEmp = new PasswordField();
+		AjouterEmp = new Button("ajouter");
+		AjouterEmp.setOnAction(this);
+		Backemp = new Button("←");
+        DateArriv.setValue(LocalDate.of(2016, 7, 25));
+        DateArriv.setShowWeekNumbers(true);
+        DateDep.setValue(LocalDate.of(2016, 7, 25));
+        DateDep.setShowWeekNumbers(true);
+		VBox layout7 = new VBox();
+		layout7.getChildren().addAll(label4,nomE,nomEmp,prenomE, PrenomEmp,mailE,mailEmp,passwordE,PasswordEmp,DateArriv,DateDep,AjouterEmp,Backemp);
+		scene7 = new Scene(layout7,1000,800);
+
 		
 		
 		//CSS menu root
@@ -207,6 +245,8 @@ public class window2 extends Application implements EventHandler<ActionEvent> {
 		SelectEmp.setStyle("-fx-background-color: #2249A7;-fx-font-size: 15pt; -fx-text-fill: #d8d8d8;");
 		SelectEmp.setTranslateX(230);
 		SelectEmp.setTranslateY(-28);
+		addEmp.setStyle("-fx-background-color: #2249A7;-fx-font-size: 15pt; -fx-text-fill: #d8d8d8;");
+		addEmp.setTranslateY(-28);
 		//CSS scene 4
 		label4.setStyle("-fx-text-fill: white;-fx-font-size: 40pt; -fx-padding: 50 50 50 50");
 		layout4.setStyle("-fx-padding: 50 100 50 100; -fx-background-color: #222;");
@@ -345,6 +385,8 @@ public class window2 extends Application implements EventHandler<ActionEvent> {
 			mailEmp.getText();
 			PasswordEmp.setText(employe.getPassword());
 			PasswordEmp.getText();
+			DateArriv.setValue(employe.getDateArrivee());
+			DateDep.setValue(employe.getDateDepart());
 			LoginWindow.setScene(scene5);
 			
 		}
@@ -354,6 +396,18 @@ public class window2 extends Application implements EventHandler<ActionEvent> {
 			employe.setMail(mailEmp.getText());
 			employe.setPassword(PasswordEmp.getText());
 			try {
+				employe.setDateArrivee(DateArriv.getValue());
+			} catch (DateImpossible e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			try {
+				employe.setDateDepart(DateDep.getValue());
+			} catch (DateImpossible e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			try {
 				employe.update();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -361,12 +415,21 @@ public class window2 extends Application implements EventHandler<ActionEvent> {
 			}
 			LoginWindow.setScene(scene4);
 		}
+		if(event.getSource() == addEmp) {
+			LoginWindow.setScene(scene7);
+			System.out.println("prout");
+		}
 		else if(event.getSource()==Backemp) {
 			LoginWindow.setScene(scene4);
 		}
-		
-	
+		else if(event.getSource() == AjouterEmp) {
+			ligue.addEmploye(nomEmp.getText(), PrenomEmp.getText(), mailEmp.getText(), PasswordEmp.getText(), DateArriv.getValue(), DateArriv.getValue());
+			LoginWindow.setScene(scene4);
+		}
+
+
 	}
+	
 	public Ligue SelectLigue(Ligue ligue) throws SauvegardeImpossible{
 		return ligue;
 	}

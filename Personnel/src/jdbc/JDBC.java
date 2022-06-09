@@ -38,7 +38,7 @@ public class JDBC implements Passerelle
         GestionPersonnel gestionPersonnel = new GestionPersonnel();
 
         try {
-            String requete = "SELECT * FROM LIGUE";
+            String requete = "SELECT * FROM LIGUE ORDER BY nom";
             Statement instruction = connection.createStatement();
             ResultSet ligues = instruction.executeQuery(requete);
 
@@ -50,8 +50,8 @@ public class JDBC implements Passerelle
                 Ligue ligue = gestionPersonnel.getLigues().last();
 
                 while (employe.next()) {
-                    int id = employe.getInt("idemployer");
-                    String nom = employe.getString("nom_employe");
+                    int id = employe.getInt("idemployé");
+                    String nom = employe.getString("nom");
                     String prenom = employe.getString("prénom");
                     String mail = employe.getString("mail");
                     String password = employe.getString("password");
@@ -117,7 +117,7 @@ public class JDBC implements Passerelle
 		try 
 		{
 				PreparedStatement instruction;
-				instruction = connection.prepareStatement("INSERT INTO `employé` (`date_d'entré`,`date_de_sortie`,`nom_employe`,`prénom`,`mail`,`password`,`type`,`idligue`) values(?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+				instruction = connection.prepareStatement("INSERT INTO `employé` (`date_d'entré`,`date_de_sortie`,`nom`,`prénom`,`mail`,`password`,`type`,`idligue`) values(?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
 				instruction.setDate(1, employé.getDateArrivee() == null ? null : Date.valueOf(employé.getDateArrivee()));
 				instruction.setDate(2, employé.getDateDepart() == null ? null : Date.valueOf(employé.getDateDepart()));
 				instruction.setString(3, employé.getNom());
