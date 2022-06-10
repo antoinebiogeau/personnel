@@ -22,7 +22,7 @@ public class GestionPersonnel implements Serializable
 	private static final long serialVersionUID = -105283113987886425L;
 	private static GestionPersonnel gestionPersonnel = null;
 	private SortedSet<Ligue> ligues;
-	private Employe root = new Employe(this, null, "root", "", "", "toor", null, null);
+	private Employe root = new Employe(this, null, "root", "", "", "toor", null, null,2);
 	public final static int SERIALIZATION = 1, JDBC = 2, 
 			TYPE_PASSERELLE = JDBC;  
 	private static Passerelle passerelle = TYPE_PASSERELLE == JDBC ? new jdbc.JDBC() : new serialisation.Serialization();	
@@ -110,13 +110,9 @@ public class GestionPersonnel implements Serializable
 	}
 	int insert(Employe employe) throws SauvegardeImpossible
     {
-        if(employe.getNom() == "root")
-        {
-            return 0;
-        }
-        else {
+ 
         return passerelle.insert(employe);
-        }
+        
     }
 	void update(Ligue ligue) throws SauvegardeImpossible
 	{

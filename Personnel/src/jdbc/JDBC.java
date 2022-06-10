@@ -38,7 +38,7 @@ public class JDBC implements Passerelle
         GestionPersonnel gestionPersonnel = new GestionPersonnel();
 
         try {
-            String requete = "SELECT * FROM LIGUE ORDER BY nom";
+            String requete = "SELECT * FROM ligue ORDER BY nom";
             Statement instruction = connection.createStatement();
             ResultSet ligues = instruction.executeQuery(requete);
 
@@ -97,7 +97,7 @@ public class JDBC implements Passerelle
 		try 
 		{
 			PreparedStatement instruction;
-			instruction = connection.prepareStatement("insert into LIGUE (nom) values (?)", Statement.RETURN_GENERATED_KEYS);
+			instruction = connection.prepareStatement("insert into ligue (nom) values (?)", Statement.RETURN_GENERATED_KEYS);
 			instruction.setString(1, ligue.getNom());		
 			instruction.executeUpdate();
 			ResultSet id = instruction.getGeneratedKeys();
@@ -163,9 +163,9 @@ public class JDBC implements Passerelle
 		
 		try {
 			PreparedStatement instruction;
-			instruction = connection.prepareStatement("UPDATE employé SET nom_employe = '"+ employé.getNom()+
+			instruction = connection.prepareStatement("UPDATE employé SET nom = '"+ employé.getNom()+
 					"', prénom = '"+employé.getPrenom()+"',  mail = '"+employé.getMail()+"',  password ='"+
-					employé.getPassword()+"', type = "+employé.getType() +" WHERE idemployer = "+ employé.getid() +" ", Statement.RETURN_GENERATED_KEYS);
+					employé.getPassword()+"', type = "+employé.getType() +" WHERE idemployé = "+ employé.getid() +" ", Statement.RETURN_GENERATED_KEYS);
 			instruction.executeUpdate();
 		} catch (SQLException e) {
 			
