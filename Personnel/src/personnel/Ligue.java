@@ -15,7 +15,7 @@ import java.util.TreeSet;
  * l'administrateur de la ligue jusqu'é ce qu'un administrateur 
  * lui ait été affecté avec la fonction {@link #setAdministrateur}.
  */
-
+//premier constructeur pour l'appli
 public class Ligue implements Serializable, Comparable<Ligue>
 {
 	private static final long serialVersionUID = 1L;
@@ -30,12 +30,14 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	 * Crée une ligue.
 	 * @param nom le nom de la ligue.
 	 */
-	
+	//premier constructeur pour l'appli
+
 	Ligue(GestionPersonnel gestionPersonnel, String nom) throws SauvegardeImpossible
 	{
 		this(gestionPersonnel, -1, nom);
 		this.id = gestionPersonnel.insert(this);
 	}
+	//2 eme constructeur pour la db
 
 	Ligue(GestionPersonnel gestionPersonnel, int id, String nom)
 	{

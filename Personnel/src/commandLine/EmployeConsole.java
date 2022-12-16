@@ -10,7 +10,7 @@ import commandLineMenus.Option;
 import personnel.Employe;
 import personnel.Ligue;
 import personnel.SauvegardeImpossible;
-
+//Jamaais de debug ici ou d'appel de methode de la base de donnée tu doit toujours passer par employe ou gestion personnel a lalimite mais evite passe par employe
 public class EmployeConsole 
 {
 	private Option afficher(final Employe employe)
@@ -18,11 +18,13 @@ public class EmployeConsole
 		return new Option("Afficher l'employé", "l", () -> {System.out.println(employe);});
 	}
 
+
 	ListOption<Employe> editerEmploye()
 	{
 		return (employe) -> editerEmploye(employe);		
 	}
-
+	//Option sert a ajouter une option dans un menu (ici editerEmploye) et menu bah c'est ton menu et .add c'est pour
+	//ajouter une option dans le menu
 	Option editerEmploye(Employe employe)
 	{
 			Menu menu = new Menu("Gérer le compte " + employe.getNom(), "c");
@@ -36,7 +38,7 @@ public class EmployeConsole
 			menu.addBack("q");
 			return menu;
 	}
-
+// permet de changer le nom de l'employe dans la console
 	private Option changerNom(final Employe employe)
 	{
 		return new Option("Changer le nom", "n", 
@@ -50,7 +52,7 @@ public class EmployeConsole
 					}
 			);
 	}
-	
+	// permet de changer le prenom de l'employe dans la console
 	private Option changerPrenom(final Employe employe)
 	{
 		return new Option("Changer le prénom", "p", () -> {
@@ -62,7 +64,7 @@ public class EmployeConsole
 			}
 			;});
 	}
-	
+	// permet de changer le mail de l'employe dans la console
 	private Option changerMail(final Employe employe)
 	{
 		return new Option("Changer le mail", "e", () -> {
@@ -74,6 +76,7 @@ public class EmployeConsole
 			}
 			});
 	}
+	// permet de changer le password de l'employe dans la console
 	
 	private Option changerPassword(final Employe employe)
 	{
@@ -86,7 +89,7 @@ public class EmployeConsole
 			}
 			});
 	}
-	
+	// permet de supprimer l'employe dans la console
 	private Option supprimerEmploye(final Employe employe) {
 		return new Option("supprimer", "r", () -> {try {
 			employe.remove();
@@ -94,7 +97,7 @@ public class EmployeConsole
 			e.printStackTrace();
 		}});
 	}
-	
+	// permet de mettre l'employe en admin dans la console
 	private Option MetAdmin(final Employe employe) {
 		Ligue ligue = employe.getLigue();
 		return new Option("Met admin de la ligue", "k", () -> {

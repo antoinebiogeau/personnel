@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 import personnel.*;
 
+//test unitaire j'ai jamais vraiment compris mais en gros tu test toutes tes fonctions voir si ca marche ou pas avec un resultat attendu
+//c'est un peu comme un clash of code
 
 
 class TestEmploye {

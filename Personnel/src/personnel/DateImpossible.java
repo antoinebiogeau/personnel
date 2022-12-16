@@ -3,7 +3,7 @@ package personnel;
 public class DateImpossible extends Exception {
 	
 	/**
-	 * 
+	 * gere l'excpetion de date impossible
 	 */
 	private static final long serialVersionUID = 1L;
 

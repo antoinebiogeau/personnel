@@ -11,6 +11,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import personnel.*;
+//evite un max les thows oou try catch comme j'ai fait juste sauvegarde impossible est legit
+//ah aussi fait pas de magouille comme voir avec les requetes sinon injection sql donc met comme lui les ? et les setString etc
+//si tu y arrive pas mp moi sur discord et je te les change toutes
 
 public class JDBC implements Passerelle 
 {
@@ -32,6 +35,7 @@ public class JDBC implements Passerelle
 			System.out.println(e);
 		}
 	}
+
 	
 	@Override
     public GestionPersonnel getGestionPersonnel() throws SauvegardeImpossible {
@@ -114,6 +118,7 @@ public class JDBC implements Passerelle
 	@Override
 	public int insert(Employe employé) throws SauvegardeImpossible
 	{
+		//la tu insert un employé donc tu doit lui donner toutes les infos qu'il a besoins dans la db juste fait attention aux type
 		try 
 		{
 				PreparedStatement instruction;

@@ -12,7 +12,7 @@ import commandLineMenus.Menu;
 import commandLineMenus.Option;
 
 import personnel.*;//bah c'est avec
-
+//jamais d'appel direct a la db ici ou de bebug ou de methode de la db appelle les methodes de gestion personnel ou employe mais evite gestion personnel sauf si vraiment tu peux pas faire autrement
 public class LigueConsole 
 {
 	private GestionPersonnel gestionPersonnel;
@@ -23,7 +23,7 @@ public class LigueConsole
 		this.gestionPersonnel = gestionPersonnel;
 		this.employeConsole = employeConsole;
 	}
-
+// meme principe que pour employeConsole mais pour la ligue
 	Menu menuLigues()
 	{
 		Menu menu = new Menu("Gérer les ligues", "l");
@@ -36,19 +36,23 @@ public class LigueConsole
 
 	private Option afficherLigues()
 	{
+		//gestionPersonnel.getLigues() c'est pour recuperer la liste des ligues Genre tu va dans la classe gestionPersonnel et tu va dans la methode getLigues
 		return new Option("Afficher les ligues", "l", () -> {System.out.println(gestionPersonnel.getLigues());});
 	}
-
+//variable final c'est pour dire que tu ne peux pas la modifier
 	private Option afficher(final Ligue ligue)
 	{
 		return new Option("Afficher la ligue", "l", 
 				() -> 
 				{
 					System.out.println(ligue);
+					//appel a la class ligue pour recuperer la methode public getAdministateurs
 					System.out.println("administrée par " + ligue.getAdministrateur());
 				}
 		);
 	}
+	//affiche les employés de la ligue dans la console
+
 	private Option afficherEmployes(final Ligue ligue)
 	{
 		return new Option("Afficher les employes", "l", () -> {

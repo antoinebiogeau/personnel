@@ -3,6 +3,7 @@ package personnel;
 
 public interface Passerelle 
 {
+	//ici tu fais le lien etre la db et le code revise le mvc pour carry mais ducoups c'est pour utiliser les methodes de jdbc dans gestion personnel puis dans ligue ou employe
 	public GestionPersonnel getGestionPersonnel() throws SauvegardeImpossible;
 	public void sauvegarderGestionPersonnel(GestionPersonnel gestionPersonnel)  throws SauvegardeImpossible;
 	public int insert(Ligue ligue) throws SauvegardeImpossible;

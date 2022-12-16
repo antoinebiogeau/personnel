@@ -22,7 +22,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	private LocalDate dateArrivee;
 	private LocalDate dateDepart;
 	private int id = -1;
-	
+	//constructeur de la classe employe
 	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrivee, LocalDate datedepart) 	{
 		this.gestionPersonnel = gestionPersonnel;
 		this.nom = nom;
@@ -38,6 +38,8 @@ public class Employe implements Serializable, Comparable<Employe>
 			e.printStackTrace();
 		} 
 	}
+	//constructeur de la classe employe pour la base ded donée
+	//il faut 2 constructeur un pour la db un pour l'appli parce que t'as besoins de l'id pour la db
 	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrivee, LocalDate datedepart, int id)
 	{
 		this.nom = nom;
@@ -60,7 +62,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	 * @param ligue la ligue pour laquelle on souhaite vérifier si this 
 	 * est l'admininstrateur.
 	 */
-	
+	//check si il est admin
 	public boolean estAdmin(Ligue ligue)
 	{
 		return ligue.getAdministrateur() == this;
@@ -73,7 +75,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	 * Retourne vrai ssi l'employé est le root.
 	 * @return vrai ssi l'employé est le root.
 	 */
-	
+	//check si il est root fait gaffe avec tout ce qui touche au root j'ai fait des giga bricoles
 	public boolean estRoot()
 	{
 		return gestionPersonnel.getRoot() == this;
@@ -213,6 +215,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	{
 		return ligue;
 	}
+	//get type c'est tabai qui l'as fait je sais pas a quoi ca sert mais surement a quelque chose rien
 	public int getType() {
 		/* TODO if pour savoir le type */
 		
@@ -233,7 +236,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	
 		return typ;
 	}
-	
+	//remove l'objet employe avec verification de si il est root et admin aussi
 	public void remove() throws SauvegardeImpossible
 	{
 		Employe root = gestionPersonnel.getRoot();
